@@ -1,0 +1,16 @@
+body {
+  background-color: #feb321;
+}
+
+h1 {
+  color: white;
+}
+.lyrics-container {
+  background-color: black;
+  color: #feb321;
+}
+
+.Button {
+  background-color: #fed79c;
+  color: black;
+}
