@@ -31,16 +31,19 @@ const playGame = async () => {
 
   const firstButton = document.createElement("button");
   firstButton.classList.add("firstButton");
+  firstButton.setAttribute("id", "optionButton");
   firstButton.textContent = mixedArtistOrder[0];
   bottomAndRight.appendChild(firstButton);
 
   const secondButton = document.createElement("button");
   secondButton.classList.add("secondButton");
+  secondButton.setAttribute("id", "optionButton");
   secondButton.textContent = mixedArtistOrder[1];
   bottomAndRight.appendChild(secondButton);
 
   const thirdButton = document.createElement("button");
   thirdButton.classList.add("thirdButton");
+  thirdButton.setAttribute("id", "optionButton");
   thirdButton.textContent = mixedArtistOrder[2];
   bottomAndRight.appendChild(thirdButton);
 
@@ -82,6 +85,11 @@ const shuffle = (array) => {
 
   return array;
 };
+
+const optionButtons = document.querySelectorAll("#optionButton");
+optionButtons.forEach((button) => {
+  button.addEventListener("click");
+});
 //ATTEMPT AT FUNCTIONAL PROGRAMMING SOLUTION FOR RANDOM ARRAY
 // const array1 = ["bananas", "apples", "peaches"];
 

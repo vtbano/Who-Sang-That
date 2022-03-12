@@ -27,15 +27,27 @@ footer {
   width: 900px;
 }
 
-.Button {
+#optionButton {
   background-color: #fed79c;
   color: black;
+  display: block;
+}
+
+#optionButton:hover {
+  background-color: black;
+  color: #feb321;
 }
 
 .playButton {
   background-color: black;
   color: #feb321;
   display: block;
+  margin: 10px;
+}
+
+.playButton:hover {
+  border: 2px solid #fed79c;
+  font-size: large;
 }
 
 .gameDescription {
