@@ -1,4 +1,4 @@
-(async () => {
+const playGame = async () => {
   const response = await fetch(
     `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${apiKey}`
   );
@@ -18,14 +18,31 @@
 
   const mixedArtistOrder = shuffle(artistArray);
 
-  const correctArtistName = document.querySelector(".first");
-  correctArtistName.textContent = mixedArtistOrder[0];
+  const landingPageImage = document.querySelector("#landing-page-img");
+  landingPageImage.remove();
 
-  const showArtistName2 = document.querySelector(".second");
-  showArtistName2.textContent = mixedArtistOrder[1];
+  const gameDescription = document.querySelector(".gameDescription");
+  gameDescription.remove();
 
-  const showArtistName3 = document.querySelector(".third");
-  showArtistName3.textContent = mixedArtistOrder[2];
+  const playButton = document.querySelector(".playButton");
+  playButton.remove();
+
+  const bottomAndRight = document.querySelector("#bottom-and-right");
+
+  const firstButton = document.createElement("button");
+  firstButton.classList.add("firstButton");
+  firstButton.textContent = mixedArtistOrder[0];
+  bottomAndRight.appendChild(firstButton);
+
+  const secondButton = document.createElement("button");
+  secondButton.classList.add("secondButton");
+  secondButton.textContent = mixedArtistOrder[1];
+  bottomAndRight.appendChild(secondButton);
+
+  const thirdButton = document.createElement("button");
+  thirdButton.classList.add("thirdButton");
+  thirdButton.textContent = mixedArtistOrder[2];
+  bottomAndRight.appendChild(thirdButton);
 
   const getLyrics = async () => {
     const response = await fetch(
@@ -34,13 +51,18 @@
     const data = await response.json();
     const body = data.message.body;
     const requiredLyrics = body.lyrics.lyrics_body;
-    const showLyrics = document.querySelector(".lyrics-container");
+    const topAndLeft = document.querySelector("#top-and-left");
+    const showLyrics = document.createElement("div");
+    showLyrics.classList.add("lyrics-container");
     showLyrics.textContent = requiredLyrics;
-    // console.log(requiredLyrics);
+    topAndLeft.appendChild(showLyrics);
   };
 
   getLyrics();
-})();
+};
+
+const playButton = document.querySelector(".playButton");
+playButton.addEventListener("click", playGame);
 
 const shuffle = (array) => {
   let currentIndex = array.length;

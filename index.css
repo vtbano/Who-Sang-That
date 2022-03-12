@@ -5,12 +5,40 @@ body {
 h1 {
   color: white;
 }
+section {
+  display: flex;
+  flex-direction: row;
+}
+
+footer {
+  color: white;
+}
+
+#top-and-left {
+  width: 900px;
+}
+
+#bottom-and-right {
+  width: 900px;
+}
 .lyrics-container {
   background-color: black;
   color: #feb321;
+  width: 900px;
 }
 
 .Button {
   background-color: #fed79c;
   color: black;
+}
+
+.playButton {
+  background-color: black;
+  color: #feb321;
+  display: block;
+}
+
+.gameDescription {
+  color: white;
+  border: 1px solid white;
 }
