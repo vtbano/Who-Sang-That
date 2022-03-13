@@ -75,8 +75,6 @@ const playGame = async () => {
         secondButton,
         thirdButton
       );
-
-      //must put if statements to determine which function it should run win or lose
     });
   });
 };
@@ -101,6 +99,80 @@ const shuffle = (array) => {
   }
 
   return array;
+};
+
+const nextRound = async () => {
+  const response = await fetch(
+    `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${apiKey}`
+  );
+  const data = await response.json();
+  const body = data.message.body;
+  const getRandomNumber = (max) => Math.floor(Math.random() * max);
+  const songCount = body.track_list.length;
+  const getRandomName = getRandomNumber(songCount);
+  const songName = body.track_list[getRandomName].track.track_name; // const song name
+  const artistName = body.track_list[getRandomName].track.artist_name; // const artist name
+  const artistName2 =
+    body.track_list[getRandomNumber(songCount)].track.artist_name;
+  const artistName3 =
+    body.track_list[getRandomNumber(songCount)].track.artist_name;
+
+  const artistArray = [artistName, artistName2, artistName3];
+
+  const mixedArtistOrder = shuffle(artistArray);
+
+  const bottomAndRight = document.querySelector("#bottom-and-right");
+  bottomAndRight.textContent = "";
+
+  const firstButton = document.createElement("button");
+  firstButton.classList.add("firstButton");
+  firstButton.setAttribute("id", "optionButton");
+  firstButton.textContent = mixedArtistOrder[0];
+  bottomAndRight.appendChild(firstButton);
+
+  const secondButton = document.createElement("button");
+  secondButton.classList.add("secondButton");
+  secondButton.setAttribute("id", "optionButton");
+  secondButton.textContent = mixedArtistOrder[1];
+  bottomAndRight.appendChild(secondButton);
+
+  const thirdButton = document.createElement("button");
+  thirdButton.classList.add("thirdButton");
+  thirdButton.setAttribute("id", "optionButton");
+  thirdButton.textContent = mixedArtistOrder[2];
+  bottomAndRight.appendChild(thirdButton);
+
+  const getLyrics = async () => {
+    const response = await fetch(
+      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=${songName}&q_artist=${artistName}&apikey=${apiKey}`
+    );
+    const data = await response.json();
+    const body = data.message.body;
+    const requiredLyrics = body.lyrics.lyrics_body;
+    const topAndLeft = document.querySelector("#top-and-left");
+    topAndLeft.textContent = "";
+    const showLyrics = document.createElement("div");
+    showLyrics.classList.add("lyrics-container");
+    showLyrics.textContent = requiredLyrics;
+    topAndLeft.appendChild(showLyrics);
+  };
+
+  getLyrics();
+
+  const optionButtons = document.querySelectorAll("button");
+  optionButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const optionSelectedContent = button.textContent;
+      optionSelectedView(
+        optionSelectedContent,
+        artistName,
+        bottomAndRight,
+        firstButton,
+        secondButton,
+        thirdButton
+      );
+    });
+  });
 };
 
 const optionSelectedView = (
@@ -140,27 +212,25 @@ const optionSelectedView = (
   }
 
   if (optionSelectedContent === artistName) {
-    setTimeout(
+    setTimeout(() => {
       correctOptionSelected(
         optionSelectedContent,
         bottomAndRight,
         firstButton,
         secondButton,
         thirdButton
-      ),
-      5000
-    );
+      );
+    }, 5000);
   } else {
-    setTimeout(
+    setTimeout(() => {
       wrongOptionSelected(
         optionSelectedContent,
         bottomAndRight,
         firstButton,
         secondButton,
         thirdButton
-      ),
-      5000
-    );
+      );
+    }, 5000);
   }
 };
 
@@ -185,10 +255,11 @@ const correctOptionSelected = (
   correctImg.src = "images/WinnieTrumpet.png";
   bottomAndRight.appendChild(correctImg);
 
-  const nextGameButton = document.createElement("button");
-  nextGameButton.classList.add("nextGameButton");
-  nextGameButton.textContent = "Hit me with the next tune ♫";
-  bottomAndRight.appendChild(nextGameButton);
+  // const nextGameButton = document.createElement("button");
+  // nextGameButton.classList.add("nextGameButton");
+  // nextGameButton.textContent = "Hit me with the next tune ♫";
+  // bottomAndRight.appendChild(nextGameButton);
+  // nextGameButton.addEventListener("click", nextRound());
 };
 
 const wrongOptionSelected = (
@@ -201,8 +272,23 @@ const wrongOptionSelected = (
   firstButton.remove();
   secondButton.remove();
   thirdButton.remove();
-  console.log(optionSelectedContent);
+  const wrongAnswerResponse = document.createElement("div");
+  wrongAnswerResponse.classList.add("wrongAnswerResponse");
+  wrongAnswerResponse.textContent = `SIGH! ${optionSelectedContent} did not sing that song!`;
+  bottomAndRight.appendChild(wrongAnswerResponse);
+
+  const wrongImg = document.createElement("img");
+  wrongImg.classList.add("wrongImg");
+  wrongImg.src = "images/sad-face.png";
+  bottomAndRight.appendChild(wrongImg);
+
+  // const nextGameButton = document.createElement("button");
+  // nextGameButton.classList.add("nextGameButton");
+  // nextGameButton.textContent = "Hit me with the next tune ♫";
+  // bottomAndRight.appendChild(nextGameButton);
+  // nextGameButton.addEventListener("click", nextRound());
 };
+
 //ATTEMPT AT FUNCTIONAL PROGRAMMING SOLUTION FOR RANDOM ARRAY
 // const array1 = ["bananas", "apples", "peaches"];
 
