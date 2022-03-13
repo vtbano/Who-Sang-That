@@ -66,10 +66,15 @@ const playGame = async () => {
   const optionButtons = document.querySelectorAll("button");
   optionButtons.forEach((button) => {
     button.addEventListener("click", () => {
-      // const optionSelectedClass = button.className;
       const optionSelectedContent = button.textContent;
-      console.log(optionSelectedContent);
-      // console.log(optionSelectedClass);
+      optionSelectedView(
+        optionSelectedContent,
+        artistName,
+        firstButton,
+        secondButton,
+        thirdButton
+      );
+      setTimeout(() => 5000); //must put if statements to determine which function it should run win or lose
     });
   });
 };
@@ -96,7 +101,41 @@ const shuffle = (array) => {
   return array;
 };
 
-// const optionSelected=
+const optionSelectedView = (
+  optionSelectedContent,
+  artistName,
+  firstButton,
+  secondButton,
+  thirdButton
+) => {
+  if (firstButton.textContent !== optionSelectedContent) {
+    firstButton.remove();
+  }
+  if (secondButton.textContent !== optionSelectedContent) {
+    secondButton.remove();
+  }
+  if (thirdButton.textContent !== optionSelectedContent) {
+    thirdButton.remove();
+  }
+
+  if (firstButton.textContent === optionSelectedContent) {
+    firstButton.classList.remove("firstButton");
+    firstButton.removeAttribute("id");
+    firstButton.classList.add("optionSelectedContent");
+  }
+
+  if (secondButton.textContent === optionSelectedContent) {
+    secondButton.classList.remove("secondButton");
+    secondButton.removeAttribute("id");
+    secondButton.classList.add("optionSelectedContent");
+  }
+
+  if (thirdButton.textContent === optionSelectedContent) {
+    thirdButton.classList.remove("thirdButton");
+    thirdButton.removeAttribute("id");
+    thirdButton.classList.add("optionSelectedContent");
+  }
+};
 
 //ATTEMPT AT FUNCTIONAL PROGRAMMING SOLUTION FOR RANDOM ARRAY
 // const array1 = ["bananas", "apples", "peaches"];
