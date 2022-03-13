@@ -62,6 +62,16 @@ const playGame = async () => {
   };
 
   getLyrics();
+
+  const optionButtons = document.querySelectorAll("button");
+  optionButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      // const optionSelectedClass = button.className;
+      const optionSelectedContent = button.textContent;
+      console.log(optionSelectedContent);
+      // console.log(optionSelectedClass);
+    });
+  });
 };
 
 const playButton = document.querySelector(".playButton");
@@ -86,10 +96,8 @@ const shuffle = (array) => {
   return array;
 };
 
-const optionButtons = document.querySelectorAll("#optionButton");
-optionButtons.forEach((button) => {
-  button.addEventListener("click");
-});
+// const optionSelected=
+
 //ATTEMPT AT FUNCTIONAL PROGRAMMING SOLUTION FOR RANDOM ARRAY
 // const array1 = ["bananas", "apples", "peaches"];
 

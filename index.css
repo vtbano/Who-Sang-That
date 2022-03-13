@@ -42,7 +42,7 @@ footer {
   background-color: black;
   color: #feb321;
   display: block;
-  margin: 10px;
+  margin-top: 10px;
 }
 
 .playButton:hover {
