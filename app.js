@@ -70,11 +70,13 @@ const playGame = async () => {
       optionSelectedView(
         optionSelectedContent,
         artistName,
+        bottomAndRight,
         firstButton,
         secondButton,
         thirdButton
       );
-      setTimeout(() => 5000); //must put if statements to determine which function it should run win or lose
+
+      //must put if statements to determine which function it should run win or lose
     });
   });
 };
@@ -104,6 +106,7 @@ const shuffle = (array) => {
 const optionSelectedView = (
   optionSelectedContent,
   artistName,
+  bottomAndRight,
   firstButton,
   secondButton,
   thirdButton
@@ -135,8 +138,71 @@ const optionSelectedView = (
     thirdButton.removeAttribute("id");
     thirdButton.classList.add("optionSelectedContent");
   }
+
+  if (optionSelectedContent === artistName) {
+    setTimeout(
+      correctOptionSelected(
+        optionSelectedContent,
+        bottomAndRight,
+        firstButton,
+        secondButton,
+        thirdButton
+      ),
+      5000
+    );
+  } else {
+    setTimeout(
+      wrongOptionSelected(
+        optionSelectedContent,
+        bottomAndRight,
+        firstButton,
+        secondButton,
+        thirdButton
+      ),
+      5000
+    );
+  }
 };
 
+const correctOptionSelected = (
+  optionSelectedContent,
+  bottomAndRight,
+  firstButton,
+  secondButton,
+  thirdButton
+) => {
+  firstButton.remove();
+  secondButton.remove();
+  thirdButton.remove();
+
+  const correctAnswerResponse = document.createElement("div");
+  correctAnswerResponse.classList.add("correctAnswerResponse");
+  correctAnswerResponse.textContent = `YAY! ${optionSelectedContent} sang that song!`;
+  bottomAndRight.appendChild(correctAnswerResponse);
+
+  const correctImg = document.createElement("img");
+  correctImg.classList.add("correctImg");
+  correctImg.src = "images/WinnieTrumpet.png";
+  bottomAndRight.appendChild(correctImg);
+
+  const nextGameButton = document.createElement("button");
+  nextGameButton.classList.add("nextGameButton");
+  nextGameButton.textContent = "Hit me with the next tune ♫";
+  bottomAndRight.appendChild(nextGameButton);
+};
+
+const wrongOptionSelected = (
+  optionSelectedContent,
+  bottomAndRight,
+  firstButton,
+  secondButton,
+  thirdButton
+) => {
+  firstButton.remove();
+  secondButton.remove();
+  thirdButton.remove();
+  console.log(optionSelectedContent);
+};
 //ATTEMPT AT FUNCTIONAL PROGRAMMING SOLUTION FOR RANDOM ARRAY
 // const array1 = ["bananas", "apples", "peaches"];
 
