@@ -62,7 +62,6 @@ const playGame = async () => {
   };
 
   getLyrics();
-
   const optionButtons = document.querySelectorAll("button");
   optionButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -122,7 +121,6 @@ const nextRound = async () => {
   const mixedArtistOrder = shuffle(artistArray);
 
   const bottomAndRight = document.querySelector("#bottom-and-right");
-  bottomAndRight.textContent = "";
 
   const firstButton = document.createElement("button");
   firstButton.classList.add("firstButton");
@@ -150,7 +148,6 @@ const nextRound = async () => {
     const body = data.message.body;
     const requiredLyrics = body.lyrics.lyrics_body;
     const topAndLeft = document.querySelector("#top-and-left");
-    topAndLeft.textContent = "";
     const showLyrics = document.createElement("div");
     showLyrics.classList.add("lyrics-container");
     showLyrics.textContent = requiredLyrics;
@@ -220,7 +217,7 @@ const optionSelectedView = (
         secondButton,
         thirdButton
       );
-    }, 5000);
+    }, 3000);
   } else {
     setTimeout(() => {
       wrongOptionSelected(
@@ -230,7 +227,7 @@ const optionSelectedView = (
         secondButton,
         thirdButton
       );
-    }, 5000);
+    }, 3000);
   }
 };
 
@@ -255,11 +252,17 @@ const correctOptionSelected = (
   correctImg.src = "images/WinnieTrumpet.png";
   bottomAndRight.appendChild(correctImg);
 
-  // const nextGameButton = document.createElement("button");
-  // nextGameButton.classList.add("nextGameButton");
-  // nextGameButton.textContent = "Hit me with the next tune ♫";
-  // bottomAndRight.appendChild(nextGameButton);
-  // nextGameButton.addEventListener("click", nextRound());
+  const nextGameButton = document.createElement("button");
+  nextGameButton.classList.add("nextGameButton");
+  nextGameButton.textContent = "Hit me with the next tune ♫";
+  bottomAndRight.appendChild(nextGameButton);
+  nextGameButton.addEventListener("click", () => {
+    const bottomAndRight = document.querySelector("#bottom-and-right");
+    const topAndLeft = document.querySelector("#top-and-left");
+    bottomAndRight.textContent = "";
+    topAndLeft.textContent = "";
+    nextRound();
+  });
 };
 
 const wrongOptionSelected = (
@@ -282,13 +285,26 @@ const wrongOptionSelected = (
   wrongImg.src = "images/sad-face.png";
   bottomAndRight.appendChild(wrongImg);
 
-  // const nextGameButton = document.createElement("button");
-  // nextGameButton.classList.add("nextGameButton");
-  // nextGameButton.textContent = "Hit me with the next tune ♫";
-  // bottomAndRight.appendChild(nextGameButton);
-  // nextGameButton.addEventListener("click", nextRound());
+  const nextGameButton = document.createElement("button");
+  nextGameButton.classList.add("nextGameButton");
+  nextGameButton.textContent = "Hit me with the next tune ♫";
+  bottomAndRight.appendChild(nextGameButton);
+  nextGameButton.addEventListener("click", () => {
+    const bottomAndRight = document.querySelector("#bottom-and-right");
+    const topAndLeft = document.querySelector("#top-and-left");
+    bottomAndRight.textContent = "";
+    topAndLeft.textContent = "";
+    nextRound();
+  });
 };
 
+// const emptyDom = () => {
+//   const bottomAndRight = document.querySelector("#bottom-and-right");
+//   const topAndLeft = document.querySelector("#top-and-left");
+//   bottomAndRight.textContent = "";
+//   topAndLeft.textContent = "";
+//   nextRound();
+// };
 //ATTEMPT AT FUNCTIONAL PROGRAMMING SOLUTION FOR RANDOM ARRAY
 // const array1 = ["bananas", "apples", "peaches"];
 
