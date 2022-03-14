@@ -1,71 +1,14 @@
-const playGame = async () => {
-  try {
-    const response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${apiKey}`
-    );
-    const data = await response.json();
-    const body = data.message.body;
-    const getRandomNumber = (max) => Math.floor(Math.random() * max);
-    const songCount = body.track_list.length;
-    const getRandomName = getRandomNumber(songCount);
-    const songName = body.track_list[getRandomName].track.track_name; // const song name
-    const artistName = body.track_list[getRandomName].track.artist_name; // const artist name
-    const artistName2 =
-      body.track_list[getRandomNumber(songCount)].track.artist_name;
-    const artistName3 =
-      body.track_list[getRandomNumber(songCount)].track.artist_name;
+const playGame = () => {
+  const landingPageImage = document.querySelector("#landing-page-img");
+  landingPageImage.remove();
 
-    const artistArray = [artistName, artistName2, artistName3];
+  const gameDescription = document.querySelector(".gameDescription");
+  gameDescription.remove();
 
-    const mixedArtistOrder = shuffle(artistArray);
+  const playButton = document.querySelector(".playButton");
+  playButton.remove();
 
-    const landingPageImage = document.querySelector("#landing-page-img");
-    landingPageImage.remove();
-
-    const gameDescription = document.querySelector(".gameDescription");
-    gameDescription.remove();
-
-    const playButton = document.querySelector(".playButton");
-    playButton.remove();
-
-    const bottomAndRight = document.querySelector("#bottom-and-right");
-
-    const firstButton = document.createElement("button");
-    firstButton.classList.add("firstButton");
-    firstButton.setAttribute("id", "optionButton");
-    firstButton.textContent = mixedArtistOrder[0];
-    bottomAndRight.appendChild(firstButton);
-
-    const secondButton = document.createElement("button");
-    secondButton.classList.add("secondButton");
-    secondButton.setAttribute("id", "optionButton");
-    secondButton.textContent = mixedArtistOrder[1];
-    bottomAndRight.appendChild(secondButton);
-
-    const thirdButton = document.createElement("button");
-    thirdButton.classList.add("thirdButton");
-    thirdButton.setAttribute("id", "optionButton");
-    thirdButton.textContent = mixedArtistOrder[2];
-    bottomAndRight.appendChild(thirdButton);
-
-    getLyrics(songName, artistName);
-    const optionButtons = document.querySelectorAll("button");
-    optionButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const optionSelectedContent = button.textContent;
-        optionSelectedView(
-          optionSelectedContent,
-          artistName,
-          bottomAndRight,
-          firstButton,
-          secondButton,
-          thirdButton
-        );
-      });
-    });
-  } catch (err) {
-    playGame();
-  }
+  nextRound();
 };
 
 const playButton = document.querySelector(".playButton");
