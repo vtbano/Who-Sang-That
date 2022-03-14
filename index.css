@@ -62,6 +62,6 @@ footer {
   color: black;
   font-style: italic;
   border: 2px solid white;
-  -moz-animation: bounce 0.4s linear;
-  -webkit-animation: bounce 0.4s linear;
+  /* -moz-animation: bounce 0.4s linear;
+  -webkit-animation: bounce 0.4s linear; */
 }

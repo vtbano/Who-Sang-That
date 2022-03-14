@@ -11,50 +11,10 @@ const playGame = () => {
   nextRound();
 };
 
-const playButton = document.querySelector(".playButton");
-playButton.addEventListener("click", playGame);
-
-const getLyrics = async (songName, artistName) => {
+const nextRound = async () => {
   try {
     const response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=${songName}&q_artist=${artistName}&apikey=${apiKey}`
-    );
-    const data = await response.json();
-    const body = data.message.body;
-    const requiredLyrics = body.lyrics.lyrics_body;
-    const topAndLeft = document.querySelector("#top-and-left");
-    const showLyrics = document.createElement("div");
-    showLyrics.classList.add("lyrics-container");
-    showLyrics.textContent = requiredLyrics;
-    topAndLeft.appendChild(showLyrics);
-  } catch (err) {
-    getLyrics();
-  }
-};
-
-const shuffle = (array) => {
-  let currentIndex = array.length;
-
-  // While there remain elements to shuffle...
-  while (currentIndex !== 0) {
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    // And swap it with the current element.
-    [array[currentIndex], array[randomIndex]] = [
-      array[randomIndex],
-      array[currentIndex],
-    ];
-  }
-
-  return array;
-};
-
-const nextRound = async (songName, artistName) => {
-  try {
-    const response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${apiKey}`
+      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${aPiKey2}`
     );
     const data = await response.json();
     const body = data.message.body;
@@ -98,76 +58,92 @@ const nextRound = async (songName, artistName) => {
     optionButtons.forEach((button) => {
       button.addEventListener("click", () => {
         const optionSelectedContent = button.textContent;
-        optionSelectedView(
-          optionSelectedContent,
+        optionSelectedView(optionSelectedContent, optionButtons);
+        optionSelectedSetTimeoutInit(
           artistName,
-          bottomAndRight,
-          firstButton,
-          secondButton,
-          thirdButton
+          optionSelectedContent,
+          optionButtons,
+          bottomAndRight
         );
       });
     });
   } catch (err) {
-    nextRound();
+    console.log("ERROR");
+    // nextRound();
   }
 };
 
-const optionSelectedView = (
-  optionSelectedContent,
+const playButton = document.querySelector(".playButton");
+playButton.addEventListener("click", playGame);
+
+const getLyrics = async (songName, artistName) => {
+  try {
+    const response = await fetch(
+      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=${songName}&q_artist=${artistName}&apikey=${aPiKey2}`
+    );
+    const data = await response.json();
+    const body = data.message.body;
+    const requiredLyrics = body.lyrics.lyrics_body;
+    const topAndLeft = document.querySelector("#top-and-left");
+    const showLyrics = document.createElement("div");
+    showLyrics.classList.add("lyrics-container");
+    showLyrics.textContent = requiredLyrics;
+    topAndLeft.appendChild(showLyrics);
+  } catch (err) {
+    console.log("ERROR LYRICS");
+    // getLyrics();
+  }
+};
+
+const shuffle = (array) => {
+  let currentIndex = array.length;
+
+  // While there remain elements to shuffle...
+  while (currentIndex !== 0) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex],
+      array[currentIndex],
+    ];
+  }
+
+  return array;
+};
+
+const optionSelectedView = (optionSelectedContent, optionButtons) => {
+  optionButtons.forEach((button) => {
+    if (button.innerText !== optionSelectedContent) {
+      button.remove();
+    }
+    if (button.innerText === optionSelectedContent) {
+      button.classList.remove(`${button.className}`);
+      button.removeAttribute("id");
+      button.classList.add("optionSelectedContent");
+    }
+  });
+};
+
+const optionSelectedSetTimeoutInit = (
   artistName,
-  bottomAndRight,
-  firstButton,
-  secondButton,
-  thirdButton
+  optionSelectedContent,
+  optionButtons,
+  bottomAndRight
 ) => {
-  if (firstButton.textContent !== optionSelectedContent) {
-    firstButton.remove();
-  }
-  if (secondButton.textContent !== optionSelectedContent) {
-    secondButton.remove();
-  }
-  if (thirdButton.textContent !== optionSelectedContent) {
-    thirdButton.remove();
-  }
-
-  if (firstButton.textContent === optionSelectedContent) {
-    firstButton.classList.remove("firstButton");
-    firstButton.removeAttribute("id");
-    firstButton.classList.add("optionSelectedContent");
-  }
-
-  if (secondButton.textContent === optionSelectedContent) {
-    secondButton.classList.remove("secondButton");
-    secondButton.removeAttribute("id");
-    secondButton.classList.add("optionSelectedContent");
-  }
-
-  if (thirdButton.textContent === optionSelectedContent) {
-    thirdButton.classList.remove("thirdButton");
-    thirdButton.removeAttribute("id");
-    thirdButton.classList.add("optionSelectedContent");
-  }
-
   if (optionSelectedContent === artistName) {
     setTimeout(() => {
       correctOptionSelected(
         optionSelectedContent,
         bottomAndRight,
-        firstButton,
-        secondButton,
-        thirdButton
+        optionButtons
       );
     }, 3000);
   } else {
     setTimeout(() => {
-      wrongOptionSelected(
-        optionSelectedContent,
-        bottomAndRight,
-        firstButton,
-        secondButton,
-        thirdButton
-      );
+      wrongOptionSelected(optionSelectedContent, bottomAndRight, optionButtons);
     }, 3000);
   }
 };
@@ -175,13 +151,11 @@ const optionSelectedView = (
 const correctOptionSelected = (
   optionSelectedContent,
   bottomAndRight,
-  firstButton,
-  secondButton,
-  thirdButton
+  optionButtons
 ) => {
-  firstButton.remove();
-  secondButton.remove();
-  thirdButton.remove();
+  optionButtons[0].remove();
+  optionButtons[1].remove();
+  optionButtons[2].remove();
 
   const correctAnswerResponse = document.createElement("div");
   correctAnswerResponse.classList.add("correctAnswerResponse");
@@ -209,13 +183,11 @@ const correctOptionSelected = (
 const wrongOptionSelected = (
   optionSelectedContent,
   bottomAndRight,
-  firstButton,
-  secondButton,
-  thirdButton
+  optionButtons
 ) => {
-  firstButton.remove();
-  secondButton.remove();
-  thirdButton.remove();
+  optionButtons[0].remove();
+  optionButtons[1].remove();
+  optionButtons[2].remove();
   const wrongAnswerResponse = document.createElement("div");
   wrongAnswerResponse.classList.add("wrongAnswerResponse");
   wrongAnswerResponse.textContent = `SIGH! ${optionSelectedContent} did not sing that song!`;
