@@ -65,13 +65,13 @@ const nextRound = async () => {
           artistName,
           optionSelectedContent,
           optionButtons,
-          bottomAndRight
+          bottomAndRight,
+          score
         );
       });
     });
   } catch (err) {
     console.log("ERROR");
-    // nextRound();
   }
 };
 
@@ -133,20 +133,31 @@ const optionSelectedSetTimeoutInit = (
   artistName,
   optionSelectedContent,
   optionButtons,
-  bottomAndRight
+  bottomAndRight,
+  score
 ) => {
   if (optionSelectedContent === artistName) {
+    const newScore = {
+      ...score,
+      correct: score.correct + 1,
+      completed: score.completed + 1,
+    };
+    console.log(newScore);
     setTimeout(() => {
       correctOptionSelected(
         optionSelectedContent,
         bottomAndRight,
         optionButtons
       );
-
       displayNextGameButton(bottomAndRight);
-      console.log("optionSelectedTimeoutInit");
     }, 3000);
   } else {
+    const newScore = {
+      ...score,
+      correct: score.correct,
+      completed: score.completed + 1,
+    };
+    console.log(newScore);
     setTimeout(() => {
       wrongOptionSelected(optionSelectedContent, bottomAndRight, optionButtons);
       displayNextGameButton(bottomAndRight);
