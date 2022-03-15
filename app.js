@@ -54,7 +54,9 @@ const nextRound = async () => {
 
     getLyrics(songName, artistName);
 
-    const optionButtons = document.querySelectorAll("button");
+    const score = { correct: 0, completed: 0 };
+
+    const optionButtons = document.querySelectorAll("#optionButton");
     optionButtons.forEach((button) => {
       button.addEventListener("click", () => {
         const optionSelectedContent = button.textContent;
@@ -140,10 +142,14 @@ const optionSelectedSetTimeoutInit = (
         bottomAndRight,
         optionButtons
       );
+
+      displayNextGameButton(bottomAndRight);
+      console.log("optionSelectedTimeoutInit");
     }, 3000);
   } else {
     setTimeout(() => {
       wrongOptionSelected(optionSelectedContent, bottomAndRight, optionButtons);
+      displayNextGameButton(bottomAndRight);
     }, 3000);
   }
 };
@@ -153,9 +159,9 @@ const correctOptionSelected = (
   bottomAndRight,
   optionButtons
 ) => {
-  optionButtons[0].remove();
-  optionButtons[1].remove();
-  optionButtons[2].remove();
+  optionButtons.forEach((button) => {
+    button.remove();
+  });
 
   const correctAnswerResponse = document.createElement("div");
   correctAnswerResponse.classList.add("correctAnswerResponse");
@@ -166,18 +172,6 @@ const correctOptionSelected = (
   correctImg.classList.add("correctImg");
   correctImg.src = "images/WinnieTrumpet.png";
   bottomAndRight.appendChild(correctImg);
-
-  const nextGameButton = document.createElement("button");
-  nextGameButton.classList.add("nextGameButton");
-  nextGameButton.textContent = "Hit me with the next tune ♫";
-  bottomAndRight.appendChild(nextGameButton);
-  nextGameButton.addEventListener("click", () => {
-    const bottomAndRight = document.querySelector("#bottom-and-right");
-    const topAndLeft = document.querySelector("#top-and-left");
-    bottomAndRight.textContent = "";
-    topAndLeft.textContent = "";
-    nextRound();
-  });
 };
 
 const wrongOptionSelected = (
@@ -185,9 +179,10 @@ const wrongOptionSelected = (
   bottomAndRight,
   optionButtons
 ) => {
-  optionButtons[0].remove();
-  optionButtons[1].remove();
-  optionButtons[2].remove();
+  optionButtons.forEach((button) => {
+    button.remove();
+  });
+
   const wrongAnswerResponse = document.createElement("div");
   wrongAnswerResponse.classList.add("wrongAnswerResponse");
   wrongAnswerResponse.textContent = `SIGH! ${optionSelectedContent} did not sing that song!`;
@@ -197,7 +192,9 @@ const wrongOptionSelected = (
   wrongImg.classList.add("wrongImg");
   wrongImg.src = "images/sad-face.png";
   bottomAndRight.appendChild(wrongImg);
+};
 
+const displayNextGameButton = (bottomAndRight) => {
   const nextGameButton = document.createElement("button");
   nextGameButton.classList.add("nextGameButton");
   nextGameButton.textContent = "Hit me with the next tune ♫";
