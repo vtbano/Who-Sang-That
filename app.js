@@ -92,7 +92,6 @@ const getLyrics = async (songName, artistName) => {
     topAndLeft.appendChild(showLyrics);
   } catch (err) {
     console.log("ERROR LYRICS");
-    // getLyrics();
   }
 };
 
@@ -168,10 +167,21 @@ const optionSelectedSetTimeoutInit = (
   }
 };
 
+const displayNewScore = (score) => {
+  const smallScreenDisplay = document.querySelector("header"); //will adjust with css flex
+  const largeScreenDisplay = document.querySelector("footer"); //will adjust with css flex
+  const showScore = document.createElement("span");
+  showScore.classList.add("showScore");
+  showScore.textContent = `${score.correct}/${score.completed}`;
+  smallScreenDisplay.appendChild(showScore);
+  largeScreenDisplay.appendChild(showScore);
+};
+
 const correctOptionSelected = (
   optionSelectedContent,
   bottomAndRight,
-  optionButtons
+  optionButtons,
+  score
 ) => {
   optionButtons.forEach((button) => {
     button.remove();
@@ -186,12 +196,15 @@ const correctOptionSelected = (
   correctImg.classList.add("correctImg");
   correctImg.src = "images/WinnieTrumpet.png";
   bottomAndRight.appendChild(correctImg);
+
+  displayNewScore(score);
 };
 
 const wrongOptionSelected = (
   optionSelectedContent,
   bottomAndRight,
-  optionButtons
+  optionButtons,
+  score
 ) => {
   optionButtons.forEach((button) => {
     button.remove();
@@ -206,6 +219,7 @@ const wrongOptionSelected = (
   wrongImg.classList.add("wrongImg");
   wrongImg.src = "images/sad-face.png";
   bottomAndRight.appendChild(wrongImg);
+  displayNewScore(score);
 };
 
 const displayNextGameButton = (bottomAndRight, newScore) => {

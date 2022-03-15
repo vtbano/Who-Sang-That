@@ -65,3 +65,9 @@ footer {
   /* -moz-animation: bounce 0.4s linear;
   -webkit-animation: bounce 0.4s linear; */
 }
+
+.showScore {
+  background-color: #fed79c;
+  color: black;
+  width: 50em;
+}
