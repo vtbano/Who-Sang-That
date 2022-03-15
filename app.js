@@ -1,3 +1,4 @@
+const initialscore = { correct: 0, completed: 0 };
 const playGame = () => {
   const landingPageImage = document.querySelector("#landing-page-img");
   landingPageImage.remove();
@@ -8,21 +9,21 @@ const playGame = () => {
   const playButton = document.querySelector(".playButton");
   playButton.remove();
 
-  nextRound();
+  nextRound(initialscore);
 };
 
-const nextRound = async (newScore) => {
+const nextRound = async (score) => {
   try {
     const response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${aPiKey2}`
+      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${apiKey}`
     );
     const data = await response.json();
     const body = data.message.body;
     const getRandomNumber = (max) => Math.floor(Math.random() * max);
     const songCount = body.track_list.length;
     const getRandomName = getRandomNumber(songCount);
-    const songName = body.track_list[getRandomName].track.track_name; // const song name
-    const artistName = body.track_list[getRandomName].track.artist_name; // const artist name
+    const songName = body.track_list[getRandomName].track.track_name; // Correct song name
+    const artistName = body.track_list[getRandomName].track.artist_name; // Correct artist name
     const artistName2 =
       body.track_list[getRandomNumber(songCount)].track.artist_name;
     const artistName3 =
@@ -54,9 +55,6 @@ const nextRound = async (newScore) => {
 
     getLyrics(songName, artistName);
 
-    const score = { correct: 0, completed: 0 };
-    console.log(newScore);
-
     const optionButtons = document.querySelectorAll("#optionButton");
     optionButtons.forEach((button) => {
       button.addEventListener("click", () => {
@@ -82,7 +80,7 @@ playButton.addEventListener("click", playGame);
 const getLyrics = async (songName, artistName) => {
   try {
     const response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=${songName}&q_artist=${artistName}&apikey=${aPiKey2}`
+      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=${songName}&q_artist=${artistName}&apikey=${apiKey}`
     );
     const data = await response.json();
     const body = data.message.body;
@@ -220,6 +218,7 @@ const displayNextGameButton = (bottomAndRight, newScore) => {
     const topAndLeft = document.querySelector("#top-and-left");
     bottomAndRight.textContent = "";
     topAndLeft.textContent = "";
+    console.log(newScore);
     nextRound(newScore);
   });
 };
