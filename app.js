@@ -11,7 +11,7 @@ const playGame = () => {
   nextRound();
 };
 
-const nextRound = async () => {
+const nextRound = async (newScore) => {
   try {
     const response = await fetch(
       `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${aPiKey2}`
@@ -55,6 +55,7 @@ const nextRound = async () => {
     getLyrics(songName, artistName);
 
     const score = { correct: 0, completed: 0 };
+    console.log(newScore);
 
     const optionButtons = document.querySelectorAll("#optionButton");
     optionButtons.forEach((button) => {
@@ -142,14 +143,14 @@ const optionSelectedSetTimeoutInit = (
       correct: score.correct + 1,
       completed: score.completed + 1,
     };
-    console.log(newScore);
     setTimeout(() => {
       correctOptionSelected(
         optionSelectedContent,
         bottomAndRight,
-        optionButtons
+        optionButtons,
+        newScore
       );
-      displayNextGameButton(bottomAndRight);
+      displayNextGameButton(bottomAndRight, newScore);
     }, 3000);
   } else {
     const newScore = {
@@ -157,10 +158,14 @@ const optionSelectedSetTimeoutInit = (
       correct: score.correct,
       completed: score.completed + 1,
     };
-    console.log(newScore);
     setTimeout(() => {
-      wrongOptionSelected(optionSelectedContent, bottomAndRight, optionButtons);
-      displayNextGameButton(bottomAndRight);
+      wrongOptionSelected(
+        optionSelectedContent,
+        bottomAndRight,
+        optionButtons,
+        newScore
+      );
+      displayNextGameButton(bottomAndRight, newScore);
     }, 3000);
   }
 };
@@ -205,7 +210,7 @@ const wrongOptionSelected = (
   bottomAndRight.appendChild(wrongImg);
 };
 
-const displayNextGameButton = (bottomAndRight) => {
+const displayNextGameButton = (bottomAndRight, newScore) => {
   const nextGameButton = document.createElement("button");
   nextGameButton.classList.add("nextGameButton");
   nextGameButton.textContent = "Hit me with the next tune ♫";
@@ -215,6 +220,6 @@ const displayNextGameButton = (bottomAndRight) => {
     const topAndLeft = document.querySelector("#top-and-left");
     bottomAndRight.textContent = "";
     topAndLeft.textContent = "";
-    nextRound();
+    nextRound(newScore);
   });
 };
