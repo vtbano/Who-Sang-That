@@ -193,8 +193,15 @@ const removeDisplayScore = (score) => {
     removeScore.remove();
   } else if (score.completed === 1) {
     console.log("initial play");
-  } else if (score.completed === 10) {
-    console.log("DONE");
+  } else if (score.correct >= 6 && score.completed === 10) {
+    console.log("WIN");
+    const removeScore = document.querySelector(".showScore");
+    removeScore.remove();
+    return;
+  } else if (score.correct <= 5 && score.completed === 10) {
+    console.log("LOSE");
+    const removeScore = document.querySelector(".showScore");
+    removeScore.remove();
     return;
   }
 };
