@@ -168,13 +168,35 @@ const optionSelectedSetTimeoutInit = (
 };
 
 const displayNewScore = (score) => {
-  const smallScreenDisplay = document.querySelector("header"); //will adjust with css flex
-  const largeScreenDisplay = document.querySelector("footer"); //will adjust with css flex
+  const smallScreenDisplay = document.querySelector("#pageTitle"); //will adjust with css flex
+  const largeScreenDisplay = document.querySelector("#bottomInfo"); //will adjust with css flex
   const showScore = document.createElement("span");
   showScore.classList.add("showScore");
   showScore.textContent = `${score.correct}/${score.completed}`;
   smallScreenDisplay.appendChild(showScore);
   largeScreenDisplay.appendChild(showScore);
+};
+
+const removeDisplayScore = (score) => {
+  if (
+    score.completed === 2 ||
+    score.completed === 3 ||
+    score.completed === 4 ||
+    score.completed === 5 ||
+    score.completed === 6 ||
+    score.completed === 7 ||
+    score.completed === 8 ||
+    score.completed === 9
+  ) {
+    console.log("success score removed");
+    const removeScore = document.querySelector(".showScore");
+    removeScore.remove();
+  } else if (score.completed === 1) {
+    console.log("initial play");
+  } else if (score.completed === 10) {
+    console.log("DONE");
+    return;
+  }
 };
 
 const correctOptionSelected = (
@@ -196,7 +218,7 @@ const correctOptionSelected = (
   correctImg.classList.add("correctImg");
   correctImg.src = "images/WinnieTrumpet.png";
   bottomAndRight.appendChild(correctImg);
-
+  removeDisplayScore(score);
   displayNewScore(score);
 };
 
@@ -219,6 +241,7 @@ const wrongOptionSelected = (
   wrongImg.classList.add("wrongImg");
   wrongImg.src = "images/sad-face.png";
   bottomAndRight.appendChild(wrongImg);
+  removeDisplayScore(score);
   displayNewScore(score);
 };
 
@@ -232,7 +255,6 @@ const displayNextGameButton = (bottomAndRight, newScore) => {
     const topAndLeft = document.querySelector("#top-and-left");
     bottomAndRight.textContent = "";
     topAndLeft.textContent = "";
-    console.log(newScore);
     nextRound(newScore);
   });
 };
