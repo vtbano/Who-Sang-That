@@ -134,7 +134,18 @@ const optionSelectedSetTimeoutInit = (
   bottomAndRight,
   score
 ) => {
-  if (optionSelectedContent === artistName) {
+  if (
+    (optionSelectedContent === artistName && score.completed === 0) ||
+    (optionSelectedContent === artistName && score.completed === 1) ||
+    (optionSelectedContent === artistName && score.completed === 2) ||
+    (optionSelectedContent === artistName && score.completed === 3) ||
+    (optionSelectedContent === artistName && score.completed === 4) ||
+    (optionSelectedContent === artistName && score.completed === 5) ||
+    (optionSelectedContent === artistName && score.completed === 6) ||
+    (optionSelectedContent === artistName && score.completed === 7) ||
+    (optionSelectedContent === artistName && score.completed === 8) ||
+    (optionSelectedContent === artistName && score.completed === 9)
+  ) {
     const newScore = {
       ...score,
       correct: score.correct + 1,
@@ -149,7 +160,18 @@ const optionSelectedSetTimeoutInit = (
       );
       displayNextGameButton(bottomAndRight, newScore);
     }, 3000);
-  } else {
+  } else if (
+    (optionSelectedContent !== artistName && score.completed === 0) ||
+    (optionSelectedContent !== artistName && score.completed === 1) ||
+    (optionSelectedContent !== artistName && score.completed === 2) ||
+    (optionSelectedContent !== artistName && score.completed === 3) ||
+    (optionSelectedContent !== artistName && score.completed === 4) ||
+    (optionSelectedContent !== artistName && score.completed === 5) ||
+    (optionSelectedContent !== artistName && score.completed === 6) ||
+    (optionSelectedContent !== artistName && score.completed === 7) ||
+    (optionSelectedContent !== artistName && score.completed === 8) ||
+    (optionSelectedContent !== artistName && score.completed === 9)
+  ) {
     const newScore = {
       ...score,
       correct: score.correct,
@@ -164,6 +186,8 @@ const optionSelectedSetTimeoutInit = (
       );
       displayNextGameButton(bottomAndRight, newScore);
     }, 3000);
+  } else {
+    removeDisplayScore(score);
   }
 };
 
@@ -195,12 +219,14 @@ const removeDisplayScore = (score) => {
     console.log("initial play");
   } else if (score.correct >= 6 && score.completed === 10) {
     winDisplay(score);
+    displayNextRoundButton();
     console.log("WIN");
     const removeScore = document.querySelector(".showScore");
     removeScore.remove();
     return;
   } else if (score.correct <= 5 && score.completed === 10) {
     loseDisplay(score);
+    displayNextRoundButton();
     console.log("LOSE");
     const removeScore = document.querySelector(".showScore");
     removeScore.remove();
@@ -291,11 +317,16 @@ const loseDisplay = (score) => {
   optionButtons.forEach((button) => {
     button.remove();
   });
-
+  const topAndLeft = document.querySelector("#top-and-left");
   const only = document.createElement("div");
-  winResponse.classList.add("winResponse");
-  winResponse.textContent = `Correct Matches!`;
-  topAndLeft.appendChild(winResponse);
+  only.classList.add("only");
+  only.textContent = `Only!`;
+  topAndLeft.appendChild(only);
+
+  const loseFinalScore = document.createElement("div");
+  loseFinalScore.classList.add("loseFinalScore");
+  loseFinalScore.textContent = `${score.correct}/${score.completed}`;
+  topAndLeft.appendChild(loseFinalScore);
 
   const bottomAndRight = document.querySelector("#bottom-and-right");
   const loseGif = document.createElement("iframe");

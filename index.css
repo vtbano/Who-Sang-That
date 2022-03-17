@@ -87,3 +87,14 @@ footer {
   width: 480;
   height: 360;
 }
+
+.only {
+  font-size: medium;
+  color: white;
+}
+
+.loseFinalScore {
+  background-color: #fed79c;
+  color: black;
+  font-size: larger;
+}
