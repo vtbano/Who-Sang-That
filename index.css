@@ -71,3 +71,19 @@ footer {
   color: black;
   width: 50em;
 }
+
+.winFinalScore {
+  background-color: #fed79c;
+  color: black;
+  font-size: larger;
+}
+
+.winResponse {
+  font-size: large;
+  color: white;
+}
+
+.loseGif {
+  width: 480;
+  height: 360;
+}

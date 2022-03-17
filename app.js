@@ -15,7 +15,7 @@ const playGame = () => {
 const nextRound = async (score) => {
   try {
     const response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${apiKey}`
+      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${aPiKey2}`
     );
     const data = await response.json();
     const body = data.message.body;
@@ -80,7 +80,7 @@ playButton.addEventListener("click", playGame);
 const getLyrics = async (songName, artistName) => {
   try {
     const response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=${songName}&q_artist=${artistName}&apikey=${apiKey}`
+      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=${songName}&q_artist=${artistName}&apikey=${aPiKey2}`
     );
     const data = await response.json();
     const body = data.message.body;
@@ -194,11 +194,13 @@ const removeDisplayScore = (score) => {
   } else if (score.completed === 1) {
     console.log("initial play");
   } else if (score.correct >= 6 && score.completed === 10) {
+    winDisplay(score);
     console.log("WIN");
     const removeScore = document.querySelector(".showScore");
     removeScore.remove();
     return;
   } else if (score.correct <= 5 && score.completed === 10) {
+    loseDisplay(score);
     console.log("LOSE");
     const removeScore = document.querySelector(".showScore");
     removeScore.remove();
@@ -263,5 +265,55 @@ const displayNextGameButton = (bottomAndRight, newScore) => {
     bottomAndRight.textContent = "";
     topAndLeft.textContent = "";
     nextRound(newScore);
+  });
+};
+
+const winDisplay = (score) => {
+  const optionButtons = document.querySelectorAll("#optionButton");
+  optionButtons.forEach((button) => {
+    button.remove();
+  });
+
+  const winFinalScore = document.createElement("div");
+  winFinalScore.classList.add("winResponse");
+  winFinalScore.textContent = `${score.correct}/${score.completed}`;
+  const topAndLeft = document.querySelector("#top-and-left");
+  topAndLeft.appendChild(winFinalScore);
+
+  const winResponse = document.createElement("div");
+  winResponse.classList.add("winResponse");
+  winResponse.textContent = `Correct Matches!`;
+  topAndLeft.appendChild(winResponse);
+};
+
+const loseDisplay = (score) => {
+  const optionButtons = document.querySelectorAll("#optionButton");
+  optionButtons.forEach((button) => {
+    button.remove();
+  });
+
+  const only = document.createElement("div");
+  winResponse.classList.add("winResponse");
+  winResponse.textContent = `Correct Matches!`;
+  topAndLeft.appendChild(winResponse);
+
+  const bottomAndRight = document.querySelector("#bottom-and-right");
+  const loseGif = document.createElement("iframe");
+  loseGif.classList.add("loseGif");
+  loseGif.src = "https://giphy.com/embed/hQ0GvkpZwYcgM"; //<a href="https://giphy.com/gifs/pokemon-psyduck-s01e71-hQ0GvkpZwYcgM">
+  bottomAndRight.appendChild(loseGif);
+};
+
+const displayNextRoundButton = () => {
+  const nextRoundButton = document.createElement("button");
+  nextRoundButton.classList.add("nextGameButton");
+  nextRoundButton.textContent = "New Round of tunes ♫";
+  const bottomAndRight = document.querySelector("#bottom-and-right");
+  bottomAndRight.appendChild(nextRoundButton);
+  nextRoundButton.addEventListener("click", () => {
+    const topAndLeft = document.querySelector("#top-and-left");
+    bottomAndRight.textContent = "";
+    topAndLeft.textContent = "";
+    nextRound();
   });
 };
