@@ -1,9 +1,12 @@
 body {
   background-color: #feb321;
+  font-family: "Comfortaa", cursive;
 }
 
 h1 {
   color: white;
+  font-family: "Kaushan Script", cursive;
+  font-size: 50px;
 }
 @media screen and (max-width: 500px) {
   h1 {
@@ -27,6 +30,7 @@ footer {
   margin: 50px 0;
   justify-content: center;
   display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
   color: white;
 }
 
@@ -48,6 +52,9 @@ footer {
   color: #feb321;
   width: 75%;
   margin-bottom: 25px;
+  padding: 20px;
+  border-radius: 15px;
+  font-family: inherit;
 }
 
 #optionButton {
@@ -58,6 +65,7 @@ footer {
   padding: 5px;
   margin: 5px;
   width: 200px;
+  font-family: inherit;
   transition: all 150ms ease-in-out;
 }
 
@@ -76,6 +84,7 @@ footer {
   border-radius: 25px;
   padding: 10px 30px;
   width: 150px;
+  font-family: inherit;
   transition: all 100ms ease;
 }
 
@@ -87,16 +96,19 @@ footer {
 .gameDescription {
   color: white;
   border: 1px solid white;
-  padding: 10px;
+  padding: 20px;
   line-height: 30px;
+  border-radius: 15px;
+  text-align: center;
 }
 
 .optionSelectedContent {
-  transform: scale(2);
+  transform: scale(1.5);
   background-color: #fed79c;
   color: black;
   font-style: italic;
   border: 2px solid white;
+  border-radius: 15px;
   /* -moz-animation: bounce 0.4s linear;
   -webkit-animation: bounce 0.4s linear; */
 }
@@ -106,6 +118,27 @@ footer {
   color: black;
   width: 50px;
   text-align: center;
+  justify-self: end;
+}
+
+.nextGameButton {
+  background-color: #feb321;
+  color: white;
+  border: 2px solid white;
+  font-size: 15px;
+  font-weight: bold;
+  display: block;
+  margin-top: 20px;
+  border-radius: 25px;
+  padding: 10px 30px;
+  width: 200px;
+  transition: all 100ms ease;
+}
+
+.nextGameButton:hover {
+  border: 2px solid #feb321;
+  background-color: black;
+  color: #feb321;
 }
 
 .winFinalScore {
