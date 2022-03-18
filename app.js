@@ -206,7 +206,6 @@ const removeDisplayScore = (score) => {
     topAndLeft.textContent = "";
     winDisplay(score);
     displayNextRoundButton();
-    debugger;
     return;
   } else if (score.correct <= 5 && score.completed === 10) {
     console.log("LOSE");
@@ -219,7 +218,6 @@ const removeDisplayScore = (score) => {
     topAndLeft.textContent = "";
     loseDisplay(score);
     displayNextRoundButton();
-    debugger;
     return;
   }
 };
@@ -347,7 +345,6 @@ const displayNextRoundButton = () => {
     const topAndLeft = document.querySelector("#top-and-left");
     bottomAndRight.textContent = "";
     topAndLeft.textContent = "";
-    debugger;
-    nextRound();
+    nextRound({ correct: 0, completed: 0 });
   });
 };
