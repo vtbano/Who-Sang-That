@@ -168,13 +168,15 @@ const optionSelectedSetTimeoutInit = (
 };
 
 const displayNewScore = (score) => {
-  const smallScreenDisplay = document.querySelector("#pageTitle"); //will adjust with css flex
-  const largeScreenDisplay = document.querySelector("#bottomInfo"); //will adjust with css flex
-  const showScore = document.createElement("span");
-  showScore.classList.add("showScore");
-  showScore.textContent = `${score.correct}/${score.completed}`;
-  smallScreenDisplay.appendChild(showScore);
-  largeScreenDisplay.appendChild(showScore);
+  if (score.completed <= 9) {
+    const smallScreenDisplay = document.querySelector("#pageTitle"); //will adjust with css flex
+    const largeScreenDisplay = document.querySelector("#bottomInfo"); //will adjust with css flex
+    const showScore = document.createElement("span");
+    showScore.classList.add("showScore");
+    showScore.textContent = `${score.correct}/${score.completed}`;
+    smallScreenDisplay.appendChild(showScore);
+    largeScreenDisplay.appendChild(showScore);
+  }
 };
 
 const removeDisplayScore = (score) => {
@@ -204,6 +206,7 @@ const removeDisplayScore = (score) => {
     topAndLeft.textContent = "";
     winDisplay(score);
     displayNextRoundButton();
+    debugger;
     return;
   } else if (score.correct <= 5 && score.completed === 10) {
     console.log("LOSE");
@@ -216,6 +219,7 @@ const removeDisplayScore = (score) => {
     topAndLeft.textContent = "";
     loseDisplay(score);
     displayNextRoundButton();
+    debugger;
     return;
   }
 };
@@ -343,6 +347,7 @@ const displayNextRoundButton = () => {
     const topAndLeft = document.querySelector("#top-and-left");
     bottomAndRight.textContent = "";
     topAndLeft.textContent = "";
+    debugger;
     nextRound();
   });
 };
