@@ -1,3 +1,4 @@
+const apikey = "OWMxOTJjYzVlMzI4ODExNjYwMDFjNzdiOTQ4OTVhZjY=";
 const initialscore = { correct: 0, completed: 0 };
 const playGame = () => {
   const landingPageImage = document.querySelector("#landing-page-img");
@@ -15,7 +16,9 @@ const playGame = () => {
 const nextRound = async (score) => {
   try {
     const response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${apiKey}`
+      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${atob(
+        apikey
+      )}`
     );
     const data = await response.json();
     const body = data.message.body;
@@ -80,7 +83,9 @@ playButton.addEventListener("click", playGame);
 const getLyrics = async (songName, artistName) => {
   try {
     const response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=${songName}&q_artist=${artistName}&apikey=${apiKey}`
+      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=${songName}&q_artist=${artistName}&apikey=${atob(
+        apikey
+      )}`
     );
     const data = await response.json();
     const body = data.message.body;
@@ -349,7 +354,7 @@ const loseDisplay = (score) => {
 
 const displayNextRoundButton = () => {
   const nextRoundButton = document.createElement("button");
-  nextRoundButton.classList.add("nextGameButton");
+  nextRoundButton.classList.add("nextRoundButton");
   nextRoundButton.textContent = "New Round of tunes ♫";
   const bottomAndRight = document.querySelector("#bottom-and-right");
   bottomAndRight.appendChild(nextRoundButton);

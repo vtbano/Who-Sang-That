@@ -132,6 +132,7 @@ footer {
   border-radius: 25px;
   padding: 10px 30px;
   width: 200px;
+  font-family: inherit;
   transition: all 100ms ease;
 }
 
