@@ -7,10 +7,14 @@ h1 {
 }
 section {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
+  justify-content: center;
+  flex: 0 1 150px;
 }
 
 footer {
+  justify-content: center;
   color: white;
 }
 

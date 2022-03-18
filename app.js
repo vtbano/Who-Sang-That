@@ -15,7 +15,7 @@ const playGame = () => {
 const nextRound = async (score) => {
   try {
     const response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${aPiKey2}`
+      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${apiKey}`
     );
     const data = await response.json();
     const body = data.message.body;
@@ -80,17 +80,18 @@ playButton.addEventListener("click", playGame);
 const getLyrics = async (songName, artistName) => {
   try {
     const response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=${songName}&q_artist=${artistName}&apikey=${aPiKey2}`
+      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=${songName}&q_artist=${artistName}&apikey=${apiKey}`
     );
     const data = await response.json();
     const body = data.message.body;
     console.log(body);
     const requiredLyrics = body.lyrics.lyrics_body;
     const [lyricsPart1, notCommericalUse] = requiredLyrics.split("*******");
+    const lines = lyricsPart1.split("\n");
     const topAndLeft = document.querySelector("#top-and-left");
     const showLyrics = document.createElement("div");
     showLyrics.classList.add("lyrics-container");
-    showLyrics.textContent = lyricsPart1;
+    showLyrics.textContent = `${lines[0]} ${lines[1]} ${lines[2]} ${lines[3]}`;
     topAndLeft.appendChild(showLyrics);
   } catch (err) {
     console.log("ERROR LYRICS");
