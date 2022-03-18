@@ -84,11 +84,13 @@ const getLyrics = async (songName, artistName) => {
     );
     const data = await response.json();
     const body = data.message.body;
+    console.log(body);
     const requiredLyrics = body.lyrics.lyrics_body;
+    const [lyricsPart1, notCommericalUse] = requiredLyrics.split("*******");
     const topAndLeft = document.querySelector("#top-and-left");
     const showLyrics = document.createElement("div");
     showLyrics.classList.add("lyrics-container");
-    showLyrics.textContent = requiredLyrics;
+    showLyrics.textContent = lyricsPart1;
     topAndLeft.appendChild(showLyrics);
   } catch (err) {
     console.log("ERROR LYRICS");
