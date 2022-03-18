@@ -320,13 +320,18 @@ const loseDisplay = (score) => {
   const topAndLeft = document.querySelector("#top-and-left");
   const only = document.createElement("div");
   only.classList.add("only");
-  only.textContent = `Only!`;
+  only.textContent = `Only...`;
   topAndLeft.appendChild(only);
 
   const loseFinalScore = document.createElement("div");
   loseFinalScore.classList.add("loseFinalScore");
   loseFinalScore.textContent = `${score.correct}/${score.completed}`;
   topAndLeft.appendChild(loseFinalScore);
+
+  const correctCount = document.createElement("div");
+  correctCount.classList.add("correctCount");
+  correctCount.textContent = `correct matches`;
+  topAndLeft.appendChild(correctCount);
 
   const bottomAndRight = document.querySelector("#bottom-and-right");
   const loseGif = document.createElement("iframe");

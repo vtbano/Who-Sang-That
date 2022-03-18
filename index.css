@@ -86,6 +86,7 @@ footer {
 .loseGif {
   width: 480;
   height: 360;
+  border: none;
 }
 
 .only {
