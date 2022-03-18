@@ -1,4 +1,3 @@
-const apikey = "OWMxOTJjYzVlMzI4ODExNjYwMDFjNzdiOTQ4OTVhZjY=";
 const initialscore = { correct: 0, completed: 0 };
 const playGame = () => {
   const landingPageImage = document.querySelector("#landing-page-img");
@@ -92,13 +91,14 @@ const getLyrics = async (songName, artistName) => {
     console.log(body);
     const requiredLyrics = body.lyrics.lyrics_body;
     const [lyricsPart1, notCommericalUse] = requiredLyrics.split("*******");
-    const lines = lyricsPart1.split("\n");
     const topAndLeft = document.querySelector("#top-and-left");
-    const showLyrics = document.createElement("div");
+    const showLyrics = document.createElement("pre");
     showLyrics.classList.add("lyrics-container");
-    showLyrics.textContent = `${lines[0]}\n ${lines[1]}\n ${lines[2]}\n ${lines[3]}`;
+    showLyrics.textContent = lyricsPart1;
     topAndLeft.appendChild(showLyrics);
   } catch (err) {
+    // catch (){}
+
     console.log("ERROR LYRICS");
   }
 };
@@ -189,16 +189,16 @@ const displayNewScore = (score) => {
 
 const removeDisplayScore = (score) => {
   if (
-    // score.completed >= 2 || DOES NOT WORK
-    // score.completed <= 9
-    score.completed === 2 ||
-    score.completed === 3 ||
-    score.completed === 4 ||
-    score.completed === 5 ||
-    score.completed === 6 ||
-    score.completed === 7 ||
-    score.completed === 8 ||
-    score.completed === 9
+    score.completed >= 2 &&
+    score.completed <= 9
+    // score.completed === 2 ||
+    // score.completed === 3 ||
+    // score.completed === 4 ||
+    // score.completed === 5 ||
+    // score.completed === 6 ||
+    // score.completed === 7 ||
+    // score.completed === 8 ||
+    // score.completed === 9
   ) {
     console.log("success score removed");
     const removeScore = document.querySelector(".showScore");
@@ -280,17 +280,17 @@ const wrongOptionSelected = (
 
 const displayNextGameButton = (bottomAndRight, newScore) => {
   if (
-    // newScore.completed >= 1 ||
-    // newScore.completed <= 9 DOES NO WORK
-    newScore.completed === 1 ||
-    newScore.completed === 2 ||
-    newScore.completed === 3 ||
-    newScore.completed === 4 ||
-    newScore.completed === 5 ||
-    newScore.completed === 6 ||
-    newScore.completed === 7 ||
-    newScore.completed === 8 ||
-    newScore.completed === 9
+    newScore.completed >= 1 &&
+    newScore.completed <= 9
+    // newScore.completed === 1 ||
+    // newScore.completed === 2 ||
+    // newScore.completed === 3 ||
+    // newScore.completed === 4 ||
+    // newScore.completed === 5 ||
+    // newScore.completed === 6 ||
+    // newScore.completed === 7 ||
+    // newScore.completed === 8 ||
+    // newScore.completed === 9
   ) {
     const nextGameButton = document.createElement("button");
     nextGameButton.classList.add("nextGameButton");
@@ -322,6 +322,37 @@ const winDisplay = (score) => {
   winResponse.classList.add("winResponse");
   winResponse.textContent = `Correct Matches!`;
   topAndLeft.appendChild(winResponse);
+
+  var duration = 15 * 1000;
+  var animationEnd = Date.now() + duration;
+  var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+  function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+
+  var interval = setInterval(function () {
+    var timeLeft = animationEnd - Date.now();
+
+    if (timeLeft <= 0) {
+      return clearInterval(interval);
+    }
+
+    var particleCount = 50 * (timeLeft / duration);
+    // since particles fall down, start a bit higher than random
+    confetti(
+      Object.assign({}, defaults, {
+        particleCount,
+        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
+      })
+    );
+    confetti(
+      Object.assign({}, defaults, {
+        particleCount,
+        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
+      })
+    );
+  }, 250);
 };
 
 const loseDisplay = (score) => {
