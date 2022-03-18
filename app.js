@@ -91,7 +91,7 @@ const getLyrics = async (songName, artistName) => {
     const topAndLeft = document.querySelector("#top-and-left");
     const showLyrics = document.createElement("div");
     showLyrics.classList.add("lyrics-container");
-    showLyrics.textContent = `${lines[0]} ${lines[1]} ${lines[2]} ${lines[3]}`;
+    showLyrics.textContent = `${lines[0]}\n ${lines[1]}\n ${lines[2]}\n ${lines[3]}`;
     topAndLeft.appendChild(showLyrics);
   } catch (err) {
     console.log("ERROR LYRICS");
@@ -184,6 +184,8 @@ const displayNewScore = (score) => {
 
 const removeDisplayScore = (score) => {
   if (
+    // score.completed >= 2 || DOES NOT WORK
+    // score.completed <= 9
     score.completed === 2 ||
     score.completed === 3 ||
     score.completed === 4 ||
@@ -273,6 +275,8 @@ const wrongOptionSelected = (
 
 const displayNextGameButton = (bottomAndRight, newScore) => {
   if (
+    // newScore.completed >= 1 ||
+    // newScore.completed <= 9 DOES NO WORK
     newScore.completed === 1 ||
     newScore.completed === 2 ||
     newScore.completed === 3 ||
