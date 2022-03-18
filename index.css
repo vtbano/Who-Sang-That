@@ -47,6 +47,7 @@ footer {
   background-color: black;
   color: #feb321;
   width: 75%;
+  margin-bottom: 25px;
 }
 
 #optionButton {
@@ -103,7 +104,8 @@ footer {
 .showScore {
   background-color: #fed79c;
   color: black;
-  width: 50em;
+  width: 50px;
+  text-align: center;
 }
 
 .winFinalScore {
@@ -131,4 +133,14 @@ footer {
   background-color: #fed79c;
   color: black;
   font-size: larger;
+}
+
+#githubLink {
+  text-decoration: none;
+  color: white;
+}
+
+#LinkedIn {
+  text-decoration: none;
+  color: white;
 }
