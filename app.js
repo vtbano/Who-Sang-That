@@ -134,18 +134,7 @@ const optionSelectedSetTimeoutInit = (
   bottomAndRight,
   score
 ) => {
-  if (
-    (optionSelectedContent === artistName && score.completed === 0) ||
-    (optionSelectedContent === artistName && score.completed === 1) ||
-    (optionSelectedContent === artistName && score.completed === 2) ||
-    (optionSelectedContent === artistName && score.completed === 3) ||
-    (optionSelectedContent === artistName && score.completed === 4) ||
-    (optionSelectedContent === artistName && score.completed === 5) ||
-    (optionSelectedContent === artistName && score.completed === 6) ||
-    (optionSelectedContent === artistName && score.completed === 7) ||
-    (optionSelectedContent === artistName && score.completed === 8) ||
-    (optionSelectedContent === artistName && score.completed === 9)
-  ) {
+  if (optionSelectedContent === artistName) {
     const newScore = {
       ...score,
       correct: score.correct + 1,
@@ -160,18 +149,7 @@ const optionSelectedSetTimeoutInit = (
       );
       displayNextGameButton(bottomAndRight, newScore);
     }, 3000);
-  } else if (
-    (optionSelectedContent !== artistName && score.completed === 0) ||
-    (optionSelectedContent !== artistName && score.completed === 1) ||
-    (optionSelectedContent !== artistName && score.completed === 2) ||
-    (optionSelectedContent !== artistName && score.completed === 3) ||
-    (optionSelectedContent !== artistName && score.completed === 4) ||
-    (optionSelectedContent !== artistName && score.completed === 5) ||
-    (optionSelectedContent !== artistName && score.completed === 6) ||
-    (optionSelectedContent !== artistName && score.completed === 7) ||
-    (optionSelectedContent !== artistName && score.completed === 8) ||
-    (optionSelectedContent !== artistName && score.completed === 9)
-  ) {
+  } else {
     const newScore = {
       ...score,
       correct: score.correct,
@@ -186,8 +164,6 @@ const optionSelectedSetTimeoutInit = (
       );
       displayNextGameButton(bottomAndRight, newScore);
     }, 3000);
-  } else {
-    removeDisplayScore(score);
   }
 };
 
@@ -218,18 +194,28 @@ const removeDisplayScore = (score) => {
   } else if (score.completed === 1) {
     console.log("initial play");
   } else if (score.correct >= 6 && score.completed === 10) {
-    winDisplay(score);
-    displayNextRoundButton();
     console.log("WIN");
     const removeScore = document.querySelector(".showScore");
+    const bottomAndRight = document.querySelector("#bottom-and-right");
+    const topAndLeft = document.querySelector("#top-and-left");
+    console.log("removeScore from win:", removeScore);
     removeScore.remove();
+    bottomAndRight.textContent = "";
+    topAndLeft.textContent = "";
+    winDisplay(score);
+    displayNextRoundButton();
     return;
   } else if (score.correct <= 5 && score.completed === 10) {
-    loseDisplay(score);
-    displayNextRoundButton();
     console.log("LOSE");
     const removeScore = document.querySelector(".showScore");
+    const bottomAndRight = document.querySelector("#bottom-and-right");
+    const topAndLeft = document.querySelector("#top-and-left");
+    console.log("removeScore from LOSE:", removeScore);
     removeScore.remove();
+    bottomAndRight.textContent = "";
+    topAndLeft.textContent = "";
+    loseDisplay(score);
+    displayNextRoundButton();
     return;
   }
 };
@@ -281,17 +267,29 @@ const wrongOptionSelected = (
 };
 
 const displayNextGameButton = (bottomAndRight, newScore) => {
-  const nextGameButton = document.createElement("button");
-  nextGameButton.classList.add("nextGameButton");
-  nextGameButton.textContent = "Hit me with the next tune ♫";
-  bottomAndRight.appendChild(nextGameButton);
-  nextGameButton.addEventListener("click", () => {
-    const bottomAndRight = document.querySelector("#bottom-and-right");
-    const topAndLeft = document.querySelector("#top-and-left");
-    bottomAndRight.textContent = "";
-    topAndLeft.textContent = "";
-    nextRound(newScore);
-  });
+  if (
+    newScore.completed === 1 ||
+    newScore.completed === 2 ||
+    newScore.completed === 3 ||
+    newScore.completed === 4 ||
+    newScore.completed === 5 ||
+    newScore.completed === 6 ||
+    newScore.completed === 7 ||
+    newScore.completed === 8 ||
+    newScore.completed === 9
+  ) {
+    const nextGameButton = document.createElement("button");
+    nextGameButton.classList.add("nextGameButton");
+    nextGameButton.textContent = "Hit me with the next tune ♫";
+    bottomAndRight.appendChild(nextGameButton);
+    nextGameButton.addEventListener("click", () => {
+      const bottomAndRight = document.querySelector("#bottom-and-right");
+      const topAndLeft = document.querySelector("#top-and-left");
+      bottomAndRight.textContent = "";
+      topAndLeft.textContent = "";
+      nextRound(newScore);
+    });
+  }
 };
 
 const winDisplay = (score) => {
