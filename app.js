@@ -26,8 +26,7 @@ const nextRound = async (score) => {
     const artistName = body.track_list[getRandomName].track.artist_name; // Correct artist name
     const artistName2 =
       body.track_list[getRandomNumber(songCount)].track.artist_name;
-    const artistName3 =
-      body.track_list[getRandomNumber(songCount)].track.artist_name;
+    const artistName3 = generateArtistName3(body, songCount);
 
     const artistArray = [artistName, artistName2, artistName3];
 
@@ -74,6 +73,15 @@ const nextRound = async (score) => {
   }
 };
 
+const generateArtistName3 = (body, songCount) => {
+  const thirdArtist =
+    body.track_list[getRandomNumber(songCount)].track.artist_name;
+  if (thirdArtist === artistName || thirdArtist === artistName2) {
+    return generateArtistName3();
+  } else {
+    return thirdArtist;
+  }
+};
 const playButton = document.querySelector(".playButton");
 playButton.addEventListener("click", playGame);
 
@@ -249,6 +257,7 @@ const correctOptionSelected = (
   bottomAndRight.appendChild(correctImg);
   removeDisplayScore(score);
   displayNewScore(score);
+  // <iframe src="https://giphy.com/embed/xuXzcHMkuwvf2" width="480" height="360" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/90s-the-girls-are-in-charge-xuXzcHMkuwvf2">via GIPHY</a></p>
 };
 
 const wrongOptionSelected = (
@@ -272,6 +281,8 @@ const wrongOptionSelected = (
   bottomAndRight.appendChild(wrongImg);
   removeDisplayScore(score);
   displayNewScore(score);
+  //jigglypuff slapping pikachew
+  // <iframe src="https://giphy.com/embed/dICjAqixKQFnG" width="480" height="372" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/dICjAqixKQFnG">via GIPHY</a></p>
 };
 
 const displayNextGameButton = (bottomAndRight, newScore) => {
