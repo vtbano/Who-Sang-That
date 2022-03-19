@@ -15,9 +15,7 @@ const playGame = () => {
 const nextRound = async (score) => {
   try {
     const response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${atob(
-        apikey
-      )}`
+      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${apiKey3}`
     );
     const data = await response.json();
     const body = data.message.body;
@@ -82,9 +80,7 @@ playButton.addEventListener("click", playGame);
 const getLyrics = async (songName, artistName) => {
   try {
     const response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=${songName}&q_artist=${artistName}&apikey=${atob(
-        apikey
-      )}`
+      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=${songName}&q_artist=${artistName}&apikey=${apiKey3}`
     );
     const data = await response.json();
     const body = data.message.body;
@@ -313,7 +309,7 @@ const winDisplay = (score) => {
   });
 
   const winFinalScore = document.createElement("div");
-  winFinalScore.classList.add("winResponse");
+  winFinalScore.classList.add("winFinalScore");
   winFinalScore.textContent = `${score.correct}/${score.completed}`;
   const topAndLeft = document.querySelector("#top-and-left");
   topAndLeft.appendChild(winFinalScore);
@@ -323,22 +319,29 @@ const winDisplay = (score) => {
   winResponse.textContent = `Correct Matches!`;
   topAndLeft.appendChild(winResponse);
 
-  var duration = 15 * 1000;
-  var animationEnd = Date.now() + duration;
-  var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+  const bottomAndRight = document.querySelector("#bottom-and-right");
+  const winGif = document.createElement("iframe");
+  winGif.classList.add("winGif");
+  winGif.src = "https://giphy.com/embed/oHB0VofpRubjW";
+  // <iframe src="https://giphy.com/embed/oHB0VofpRubjW" width="480" height="372" frameBorder="0" class="giphy-embed" allowFullScreen></iframe><p><a href="https://giphy.com/gifs/jigglypuff-sig-oHB0VofpRubjW">via GIPHY</a></p>
+  bottomAndRight.appendChild(winGif);
+
+  const duration = 15 * 1000;
+  const animationEnd = Date.now() + duration;
+  const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
 
   function randomInRange(min, max) {
     return Math.random() * (max - min) + min;
   }
 
-  var interval = setInterval(function () {
-    var timeLeft = animationEnd - Date.now();
+  const interval = setInterval(function () {
+    const timeLeft = animationEnd - Date.now();
 
     if (timeLeft <= 0) {
       return clearInterval(interval);
     }
 
-    var particleCount = 50 * (timeLeft / duration);
+    const particleCount = 50 * (timeLeft / duration);
     // since particles fall down, start a bit higher than random
     confetti(
       Object.assign({}, defaults, {
@@ -379,7 +382,7 @@ const loseDisplay = (score) => {
   const bottomAndRight = document.querySelector("#bottom-and-right");
   const loseGif = document.createElement("iframe");
   loseGif.classList.add("loseGif");
-  loseGif.src = "https://giphy.com/embed/hQ0GvkpZwYcgM"; //<a href="https://giphy.com/gifs/pokemon-psyduck-s01e71-hQ0GvkpZwYcgM">
+  loseGif.src = "https://giphy.com/embed/hQ0GvkpZwYcgM";
   bottomAndRight.appendChild(loseGif);
 };
 
