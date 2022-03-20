@@ -81,7 +81,7 @@ const getRandomNumber = (max) => Math.floor(Math.random() * max);
 const generateArtistName2 = (body, songCount, artistName) => {
   const secondArtist =
     body.track_list[getRandomNumber(songCount)].track.artist_name;
-  if (secondArtist === artistName) {
+  if (secondArtist === artistName || secondArtist === "") {
     generateArtistName2(body, songCount, artistName);
   } else {
     return secondArtist;
@@ -91,7 +91,11 @@ const generateArtistName2 = (body, songCount, artistName) => {
 const generateArtistName3 = (body, songCount, artistName, artistName2) => {
   const thirdArtist =
     body.track_list[getRandomNumber(songCount)].track.artist_name;
-  if (thirdArtist === artistName || thirdArtist === artistName2) {
+  if (
+    thirdArtist === artistName ||
+    thirdArtist === artistName2 ||
+    thirdArtist === ""
+  ) {
     generateArtistName3(body, songCount, artistName, artistName2);
   } else {
     return thirdArtist;
@@ -107,21 +111,21 @@ const getLyrics = async (songName, artistName) => {
     );
     const data = await response.json();
     const body = data.message.body;
-    console.log(body);
     const requiredLyrics = body.lyrics.lyrics_body;
-    const [lyricsPart1, notCommericalUse] = requiredLyrics.split("*******");
-    const topAndLeft = document.querySelector("#top-and-left");
-    const showLyrics = document.createElement("pre");
-    showLyrics.classList.add("lyrics-container");
-    showLyrics.textContent = lyricsPart1;
-    topAndLeft.appendChild(showLyrics);
+    if (requiredLyrics === "") {
+      // getLyrics(songName, artistName);
+      console.log("BLANK LYRICS");
+    } else {
+      const [lyricsPart1, notCommericalUse] = requiredLyrics.split("*******");
+      const topAndLeft = document.querySelector("#top-and-left");
+      const showLyrics = document.createElement("pre");
+      showLyrics.classList.add("lyrics-container");
+      showLyrics.textContent = lyricsPart1;
+      topAndLeft.appendChild(showLyrics);
+      console.log(body);
+    }
   } catch (err) {
-    // catch (){
-    //       if(body.lyrics.lyrics_body=== " "){
-    //         getLyrics();
-    //       }
-    //     } add catch when lyrics are blank or error
-
+    // getLyrics(songName, artistName);
     console.log("ERROR LYRICS");
   }
 };
@@ -333,7 +337,7 @@ const winDisplay = (score) => {
   winGif.classList.add("winGif");
   winGif.src = "https://giphy.com/embed/oHB0VofpRubjW";
   bottomAndRight.appendChild(winGif);
-
+  //Confetti
   const duration = 15 * 1000;
   const animationEnd = Date.now() + duration;
   const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };

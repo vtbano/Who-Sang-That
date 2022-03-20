@@ -67,7 +67,7 @@ footer {
   padding: 20px;
   border-radius: 15px;
   font-family: inherit;
-  width: fit-content;
+  height: fit-content;
 }
 
 @media screen and (max-width: 500px) {
