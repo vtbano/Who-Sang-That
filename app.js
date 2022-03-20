@@ -154,8 +154,13 @@ const optionSelectedView = (optionSelectedContent, optionButtons) => {
       button.classList.remove(`${button.className}`);
       button.removeAttribute("id");
       button.classList.add("optionSelectedContent");
+      button.setAttribute("id", "bounce");
+      const stage = document.createElement("div");
+      stage.classList.add("stage");
       const bottomAndRight = document.querySelector("#bottom-and-right");
-      bottomAndRight.appendChild(button);
+      bottomAndRight.removeChild(button);
+      bottomAndRight.appendChild(stage);
+      stage.appendChild(button);
     }
   });
 };
@@ -253,7 +258,7 @@ const correctOptionSelected = (
   optionButtons.forEach((button) => {
     button.remove();
   });
-
+  bottomAndRight.textContent = "";
   const correctAnswerResponse = document.createElement("div");
   correctAnswerResponse.classList.add("correctAnswerResponse");
   correctAnswerResponse.textContent = `YAY! ${optionSelectedContent} sang that song!`;
@@ -276,7 +281,7 @@ const wrongOptionSelected = (
   optionButtons.forEach((button) => {
     button.remove();
   });
-
+  bottomAndRight.textContent = "";
   const wrongAnswerResponse = document.createElement("div");
   wrongAnswerResponse.classList.add("wrongAnswerResponse");
   wrongAnswerResponse.textContent = `SIGH! ${optionSelectedContent} did not sing that song!`;
@@ -378,8 +383,8 @@ const loseDisplay = (score) => {
   topAndLeft.appendChild(loseFinalScore);
 
   const correctCount = document.createElement("div");
-  correctCount.classList.add("correctCount");
-  correctCount.textContent = `correct matches`;
+  correctCount.classList.add("numberOfMatchesLose");
+  correctCount.textContent = `matches`;
   topAndLeft.appendChild(correctCount);
 
   const bottomAndRight = document.querySelector("#bottom-and-right");

@@ -124,15 +124,41 @@ footer {
 .optionSelectedContent {
   font-size: 1.5em;
   padding: 1.5em;
-  margin: 1em;
+  /* margin: 1em; */
   width: fit-content;
   background-color: #fed79c;
   color: black;
   font-style: italic;
   border: 2px solid white;
   border-radius: 15px;
-  /* -moz-animation: bounce 0.4s linear;
-  -webkit-animation: bounce 0.4s linear; */
+  align-self: flex-end;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  margin: 0 auto 0 auto;
+  transform-origin: bottom;
+}
+
+.stage {
+  display: flex;
+  height: 330px;
+  width: 100%;
+}
+
+#bounce {
+  animation-name: bounce;
+  animation-timing-function: ease;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-100px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 .showScore {
@@ -183,22 +209,39 @@ footer {
   color: #feb321;
 }
 
+.loseFinalScore,
 .winFinalScore {
-  transform: scale(2);
   background-color: #fed79c;
   color: black;
   font-size: 2em;
   display: inherit;
   place-items: inherit;
+  margin: 30px 0;
+}
+
+.winFinalScore {
+  transform: scale(2);
+}
+
+.loseFinalScore {
+  padding: 25px;
+}
+
+.only,
+.winResponse,
+.numberOfMatchesLose {
+  color: white;
+  display: inherit;
+  text-align: center;
+  padding: 10px;
 }
 
 .winResponse {
   font-size: 70px;
-  color: white;
-  display: inherit;
-  place-items: inherit;
 }
-
+.only {
+  font-size: 1em;
+}
 .correctImg,
 .wrongImg,
 .winGif,
@@ -206,16 +249,6 @@ footer {
   width: 480;
   height: 360;
   border: none;
-}
-
-.only {
-  font-size: medium;
-}
-
-.loseFinalScore {
-  background-color: #fed79c;
-  color: black;
-  font-size: larger;
 }
 
 #githubLink {
