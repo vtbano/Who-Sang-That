@@ -13,68 +13,68 @@ const playGame = () => {
 };
 
 const nextRound = async (score) => {
-  //try {
-  const response = await fetch(
-    `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${apiKey3}`
-  );
-  const data = await response.json();
-  const body = data.message.body;
-  const songCount = body.track_list.length;
-  const getRandomName = getRandomNumber(songCount);
-  const songName = body.track_list[getRandomName].track.track_name; // Correct song name
-  const artistName = body.track_list[getRandomName].track.artist_name; // Correct artist name
-  const artistName2 =
-    body.track_list[getRandomNumber(songCount)].track.artist_name;
-  const artistName3 = generateArtistName3(
-    body,
-    songCount,
-    artistName,
-    artistName2
-  );
+  try {
+    const response = await fetch(
+      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${apiKey3}`
+    );
+    const data = await response.json();
+    const body = data.message.body;
+    const songCount = body.track_list.length;
+    const getRandomName = getRandomNumber(songCount);
+    const songName = body.track_list[getRandomName].track.track_name; // Correct song name
+    const artistName = body.track_list[getRandomName].track.artist_name; // Correct artist name
+    const artistName2 =
+      body.track_list[getRandomNumber(songCount)].track.artist_name;
+    const artistName3 = generateArtistName3(
+      body,
+      songCount,
+      artistName,
+      artistName2
+    );
 
-  const artistArray = [artistName, artistName2, artistName3];
+    const artistArray = [artistName, artistName2, artistName3];
 
-  const mixedArtistOrder = shuffle(artistArray);
+    const mixedArtistOrder = shuffle(artistArray);
 
-  const bottomAndRight = document.querySelector("#bottom-and-right");
+    const bottomAndRight = document.querySelector("#bottom-and-right");
 
-  const firstButton = document.createElement("button");
-  firstButton.classList.add("firstButton");
-  firstButton.setAttribute("id", "optionButton");
-  firstButton.textContent = mixedArtistOrder[0];
-  bottomAndRight.appendChild(firstButton);
+    const firstButton = document.createElement("button");
+    firstButton.classList.add("firstButton");
+    firstButton.setAttribute("id", "optionButton");
+    firstButton.textContent = mixedArtistOrder[0];
+    bottomAndRight.appendChild(firstButton);
 
-  const secondButton = document.createElement("button");
-  secondButton.classList.add("secondButton");
-  secondButton.setAttribute("id", "optionButton");
-  secondButton.textContent = mixedArtistOrder[1];
-  bottomAndRight.appendChild(secondButton);
+    const secondButton = document.createElement("button");
+    secondButton.classList.add("secondButton");
+    secondButton.setAttribute("id", "optionButton");
+    secondButton.textContent = mixedArtistOrder[1];
+    bottomAndRight.appendChild(secondButton);
 
-  const thirdButton = document.createElement("button");
-  thirdButton.classList.add("thirdButton");
-  thirdButton.setAttribute("id", "optionButton");
-  thirdButton.textContent = mixedArtistOrder[2];
-  bottomAndRight.appendChild(thirdButton);
+    const thirdButton = document.createElement("button");
+    thirdButton.classList.add("thirdButton");
+    thirdButton.setAttribute("id", "optionButton");
+    thirdButton.textContent = mixedArtistOrder[2];
+    bottomAndRight.appendChild(thirdButton);
 
-  getLyrics(songName, artistName);
+    getLyrics(songName, artistName);
 
-  const optionButtons = document.querySelectorAll("#optionButton");
-  optionButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const optionSelectedContent = button.textContent;
-      optionSelectedView(optionSelectedContent, optionButtons);
-      optionSelectedSetTimeoutInit(
-        artistName,
-        optionSelectedContent,
-        optionButtons,
-        bottomAndRight,
-        score
-      );
+    const optionButtons = document.querySelectorAll("#optionButton");
+    optionButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const optionSelectedContent = button.textContent;
+        optionSelectedView(optionSelectedContent, optionButtons);
+        optionSelectedSetTimeoutInit(
+          artistName,
+          optionSelectedContent,
+          optionButtons,
+          bottomAndRight,
+          score
+        );
+      });
     });
-  });
-  // } catch (err) {
-  //console.log("ERROR");
-  // }
+  } catch (err) {
+    console.log("ERROR");
+  }
 };
 
 const getRandomNumber = (max) => Math.floor(Math.random() * max);
@@ -107,7 +107,7 @@ const getLyrics = async (songName, artistName) => {
     showLyrics.textContent = lyricsPart1;
     topAndLeft.appendChild(showLyrics);
   } catch (err) {
-    // catch (){}
+    // catch (){} add catch when lyrics are blank or error
 
     console.log("ERROR LYRICS");
   }
@@ -198,18 +198,7 @@ const displayNewScore = (score) => {
 };
 
 const removeDisplayScore = (score) => {
-  if (
-    score.completed >= 2 &&
-    score.completed <= 9
-    // score.completed === 2 ||
-    // score.completed === 3 ||
-    // score.completed === 4 ||
-    // score.completed === 5 ||
-    // score.completed === 6 ||
-    // score.completed === 7 ||
-    // score.completed === 8 ||
-    // score.completed === 9
-  ) {
+  if (score.completed >= 2 && score.completed <= 9) {
     console.log("success score removed");
     const removeScore = document.querySelector(".showScore");
     removeScore.remove();
@@ -292,19 +281,7 @@ const wrongOptionSelected = (
 };
 
 const displayNextGameButton = (bottomAndRight, newScore) => {
-  if (
-    newScore.completed >= 1 &&
-    newScore.completed <= 9
-    // newScore.completed === 1 ||
-    // newScore.completed === 2 ||
-    // newScore.completed === 3 ||
-    // newScore.completed === 4 ||
-    // newScore.completed === 5 ||
-    // newScore.completed === 6 ||
-    // newScore.completed === 7 ||
-    // newScore.completed === 8 ||
-    // newScore.completed === 9
-  ) {
+  if (newScore.completed >= 1 && newScore.completed <= 9) {
     const nextGameButton = document.createElement("button");
     nextGameButton.classList.add("nextGameButton");
     nextGameButton.textContent = "Hit me with the next tune ♫";

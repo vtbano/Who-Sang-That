@@ -17,20 +17,16 @@ h1 {
 section {
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
+  /* flex-direction: row; */
   justify-content: center;
-  /* flex: 0 1 150px; */
+  flex: 0 1 150px;
 }
-@media screen and (max-width: 500px) {
-  .section {
-    display: block;
-  }
-}
+
 footer {
   margin: 50px 0;
   justify-content: center;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: minmax(23px, 23px) minmax(23, 23px) minmax(23, 23px);
   color: white;
 }
 
@@ -102,6 +98,12 @@ footer {
   text-align: center;
 }
 
+/* @media screen and (max-width: 1440px) {
+  .createdBy {
+    transform: scale(0.7);
+  }
+} */
+
 .optionSelectedContent {
   transform: scale(1.5);
   background-color: #fed79c;
@@ -120,6 +122,12 @@ footer {
   text-align: center;
   justify-self: end;
 }
+
+/* @media screen and (max-width: 1440px) {
+  .showScore {
+    transform: scale(0.8);
+  }
+} */
 
 .nextRoundButton,
 .nextGameButton {
