@@ -189,12 +189,10 @@ const optionSelectedSetTimeoutInit = (
 
 const displayNewScore = (score) => {
   if (score.completed <= 9) {
-    const smallScreenDisplay = document.querySelector("#pageTitle"); //will adjust with css flex
     const largeScreenDisplay = document.querySelector("#bottomInfo"); //will adjust with css flex
     const showScore = document.createElement("span");
     showScore.classList.add("showScore");
     showScore.textContent = `${score.correct}/${score.completed}`;
-    smallScreenDisplay.appendChild(showScore);
     largeScreenDisplay.appendChild(showScore);
   }
 };
@@ -248,9 +246,9 @@ const correctOptionSelected = (
   correctAnswerResponse.textContent = `YAY! ${optionSelectedContent} sang that song!`;
   bottomAndRight.appendChild(correctAnswerResponse);
 
-  const correctImg = document.createElement("img");
+  const correctImg = document.createElement("iframe");
   correctImg.classList.add("correctImg");
-  correctImg.src = "images/WinnieTrumpet.png";
+  correctImg.src = "https://giphy.com/embed/xuXzcHMkuwvf2";
   bottomAndRight.appendChild(correctImg);
   removeDisplayScore(score);
   displayNewScore(score);
@@ -272,9 +270,9 @@ const wrongOptionSelected = (
   wrongAnswerResponse.textContent = `SIGH! ${optionSelectedContent} did not sing that song!`;
   bottomAndRight.appendChild(wrongAnswerResponse);
 
-  const wrongImg = document.createElement("img");
+  const wrongImg = document.createElement("iframe");
   wrongImg.classList.add("wrongImg");
-  wrongImg.src = "images/sad-face.png";
+  wrongImg.src = "https://giphy.com/embed/dICjAqixKQFnG";
   bottomAndRight.appendChild(wrongImg);
   removeDisplayScore(score);
   displayNewScore(score);

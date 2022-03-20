@@ -19,7 +19,6 @@ section {
   flex-wrap: wrap;
 }
 
-/* REMOVE GRID */
 footer {
   margin: 50px 0;
   justify-content: center;
@@ -54,7 +53,6 @@ footer {
   flex: 1 1 300px; /*allows content to fill up the space up until the min hits 300px, then it will wrap over*/
 }
 
-/* CHANGE */
 @media screen and (min-width: 500px) {
   #bottom-and-right {
     max-height: 100px;
@@ -142,7 +140,6 @@ footer {
   left: 90%;
 }
 
-/* CHANGE */
 @media screen and (max-width: 500px) {
   .showScore {
     position: absolute;
@@ -187,6 +184,8 @@ footer {
   color: white;
 }
 
+.correctImg,
+.wrongImg,
 .winGif,
 .loseGif {
   width: 480;
