@@ -55,7 +55,9 @@ footer {
 
 @media screen and (min-width: 500px) {
   #bottom-and-right {
-    max-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
   }
 }
 .lyrics-container {
