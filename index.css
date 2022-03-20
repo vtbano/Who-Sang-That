@@ -148,6 +148,13 @@ footer {
   }
 }
 
+.correctAnswerResponse,
+.wrongAnswerResponse {
+  padding: 5px;
+  display: inherit;
+  place-items: inherit;
+  text-align: center;
+}
 .nextRoundButton,
 .nextGameButton {
   background-color: #feb321;
@@ -172,16 +179,19 @@ footer {
 }
 
 .winFinalScore {
-  transform: rotate(2turn);
   transform: scale(2);
   background-color: #fed79c;
   color: black;
   font-size: 2em;
+  display: inherit;
+  place-items: inherit;
 }
 
 .winResponse {
   font-size: 70px;
   color: white;
+  display: inherit;
+  place-items: inherit;
 }
 
 .correctImg,
