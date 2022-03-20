@@ -17,9 +17,6 @@ h1 {
 section {
   display: flex;
   flex-wrap: wrap;
-  /* flex-direction: row; */
-  justify-content: center;
-  flex: 0 1 150px;
 }
 
 footer {
@@ -35,12 +32,16 @@ footer {
   color: white;
   display: grid;
   place-items: center;
+  justify-content: center;
+  flex: 1 1 300px; /*allows content to fill up the space up until the min hits 300px, then it will wrap over*/
 }
 
 #bottom-and-right {
   width: 900px;
   display: grid;
   place-items: center;
+  justify-content: center;
+  flex: 1 1 300px; /*allows content to fill up the space up until the min hits 300px, then it will wrap over*/
 }
 
 .lyrics-container {
