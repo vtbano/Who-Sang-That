@@ -23,8 +23,7 @@ const nextRound = async (score) => {
     const getRandomName = getRandomNumber(songCount);
     const songName = body.track_list[getRandomName].track.track_name; // Correct song name
     const artistName = body.track_list[getRandomName].track.artist_name; // Correct artist name
-    const artistName2 =
-      body.track_list[getRandomNumber(songCount)].track.artist_name;
+    const artistName2 = generateArtistName2(body, songCount, artistName);
     const artistName3 = generateArtistName3(
       body,
       songCount,
@@ -79,6 +78,16 @@ const nextRound = async (score) => {
 
 const getRandomNumber = (max) => Math.floor(Math.random() * max);
 
+const generateArtistName2 = (body, songCount, artistName) => {
+  const secondArtist =
+    body.track_list[getRandomNumber(songCount)].track.artist_name;
+  if (secondArtist === artistName) {
+    generateArtistName2();
+  } else {
+    return secondArtist;
+  }
+};
+
 const generateArtistName3 = (body, songCount, artistName, artistName2) => {
   const thirdArtist =
     body.track_list[getRandomNumber(songCount)].track.artist_name;
@@ -107,7 +116,11 @@ const getLyrics = async (songName, artistName) => {
     showLyrics.textContent = lyricsPart1;
     topAndLeft.appendChild(showLyrics);
   } catch (err) {
-    // catch (){} add catch when lyrics are blank or error
+    // catch (){
+    //       if(body.lyrics.lyrics_body=== " "){
+    //         getLyrics();
+    //       }
+    //     } add catch when lyrics are blank or error
 
     console.log("ERROR LYRICS");
   }
