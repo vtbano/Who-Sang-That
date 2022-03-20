@@ -28,14 +28,10 @@ footer {
 }
 
 #top-and-left {
-  width: 900px;
   color: white;
-  display: grid;
-  place-items: center;
-  justify-content: center;
-  flex: 1 1 300px; /*allows content to fill up the space up until the min hits 300px, then it will wrap over*/
 }
 
+#top-and-left,
 #bottom-and-right {
   width: 900px;
   display: grid;
@@ -52,6 +48,7 @@ footer {
   padding: 20px;
   border-radius: 15px;
   font-family: inherit;
+  width: fit-content;
 }
 
 #optionButton {
@@ -99,12 +96,6 @@ footer {
   text-align: center;
 }
 
-/* @media screen and (max-width: 1440px) {
-  .createdBy {
-    transform: scale(0.7);
-  }
-} */
-
 .optionSelectedContent {
   transform: scale(1.5);
   background-color: #fed79c;
@@ -123,12 +114,6 @@ footer {
   text-align: center;
   justify-self: end;
 }
-
-/* @media screen and (max-width: 1440px) {
-  .showScore {
-    transform: scale(0.8);
-  }
-} */
 
 .nextRoundButton,
 .nextGameButton {
