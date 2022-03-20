@@ -13,70 +13,81 @@ const playGame = () => {
 };
 
 const nextRound = async (score) => {
-  // try {
-  const response = await fetch(
-    `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${apiKey}`
-  );
-  const data = await response.json();
-  const body = data.message.body;
-  const songCount = body.track_list.length;
-  const getRandomName = getRandomNumber(songCount);
-  const songName = body.track_list[getRandomName].track.track_name; // Correct song name
-  const artistName = body.track_list[getRandomName].track.artist_name; // Correct artist name
-  const artistName2 = generateArtistName2(body, songCount, artistName);
-  const artistName3 = generateArtistName3(
-    body,
-    songCount,
-    artistName,
-    artistName2
-  );
+  try {
+    const response = await fetch(
+      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${apiKey}`
+    );
+    const data = await response.json();
+    const body = data.message.body;
+    const songCount = body.track_list.length;
+    const getRandomName = generateRandomName(songCount);
+    const songName = body.track_list[getRandomName].track.track_name; // Correct song name
+    const artistName = generateWinArtist(body, getRandomName); // Correct artist name
+    const artistName2 = generateArtistName2(body, songCount, artistName);
+    const artistName3 = generateArtistName3(
+      body,
+      songCount,
+      artistName,
+      artistName2
+    );
 
-  const artistArray = [artistName, artistName2, artistName3];
+    const artistArray = [artistName, artistName2, artistName3];
 
-  const mixedArtistOrder = shuffle(artistArray);
+    const mixedArtistOrder = shuffle(artistArray);
 
-  const bottomAndRight = document.querySelector("#bottom-and-right");
+    const bottomAndRight = document.querySelector("#bottom-and-right");
 
-  const firstButton = document.createElement("button");
-  firstButton.classList.add("firstButton");
-  firstButton.setAttribute("id", "optionButton");
-  firstButton.textContent = mixedArtistOrder[0];
-  bottomAndRight.appendChild(firstButton);
+    const firstButton = document.createElement("button");
+    firstButton.classList.add("firstButton");
+    firstButton.setAttribute("id", "optionButton");
+    firstButton.textContent = mixedArtistOrder[0];
+    bottomAndRight.appendChild(firstButton);
 
-  const secondButton = document.createElement("button");
-  secondButton.classList.add("secondButton");
-  secondButton.setAttribute("id", "optionButton");
-  secondButton.textContent = mixedArtistOrder[1];
-  bottomAndRight.appendChild(secondButton);
+    const secondButton = document.createElement("button");
+    secondButton.classList.add("secondButton");
+    secondButton.setAttribute("id", "optionButton");
+    secondButton.textContent = mixedArtistOrder[1];
+    bottomAndRight.appendChild(secondButton);
 
-  const thirdButton = document.createElement("button");
-  thirdButton.classList.add("thirdButton");
-  thirdButton.setAttribute("id", "optionButton");
-  thirdButton.textContent = mixedArtistOrder[2];
-  bottomAndRight.appendChild(thirdButton);
+    const thirdButton = document.createElement("button");
+    thirdButton.classList.add("thirdButton");
+    thirdButton.setAttribute("id", "optionButton");
+    thirdButton.textContent = mixedArtistOrder[2];
+    bottomAndRight.appendChild(thirdButton);
 
-  getLyrics(songName, artistName);
+    getLyrics(songName, artistName);
 
-  const optionButtons = document.querySelectorAll("#optionButton");
-  optionButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const optionSelectedContent = button.textContent;
-      optionSelectedView(optionSelectedContent, optionButtons);
-      optionSelectedSetTimeoutInit(
-        artistName,
-        optionSelectedContent,
-        optionButtons,
-        bottomAndRight,
-        score
-      );
+    const optionButtons = document.querySelectorAll("#optionButton");
+    optionButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const optionSelectedContent = button.textContent;
+        optionSelectedView(optionSelectedContent, optionButtons);
+        optionSelectedSetTimeoutInit(
+          artistName,
+          optionSelectedContent,
+          optionButtons,
+          bottomAndRight,
+          score
+        );
+      });
     });
-  });
-  // } catch (err) {
-  //   console.log("ERROR");
-  // }
+  } catch (err) {
+    console.log("ERROR");
+  }
 };
 
 const getRandomNumber = (max) => Math.floor(Math.random() * max);
+
+const generateRandomName = (songCount) => getRandomNumber(songCount);
+
+const generateWinArtist = (body, getRandomName) => {
+  const winArtist = body.track_list[getRandomName].track.artist_name;
+  if (winArtist === "") {
+    generateWinArtist(body, getRandomName);
+  } else {
+    return winArtist;
+  }
+};
 
 const generateArtistName2 = (body, songCount, artistName) => {
   const secondArtist =
@@ -101,6 +112,7 @@ const generateArtistName3 = (body, songCount, artistName, artistName2) => {
     return thirdArtist;
   }
 };
+
 const playButton = document.querySelector(".playButton");
 playButton.addEventListener("click", playGame);
 

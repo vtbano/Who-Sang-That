@@ -53,7 +53,7 @@ footer {
   flex: 1 1 300px; /*allows content to fill up the space up until the min hits 300px, then it will wrap over. Choose 300px for cellphone view*/
 }
 
-@media screen and (min-width: 500px) {
+@media screen and (min-width: 450px) {
   #bottom-and-right {
     display: flex;
     flex-direction: column;
