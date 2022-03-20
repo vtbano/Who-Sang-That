@@ -83,7 +83,7 @@ const generateArtistName3 = (body, songCount, artistName, artistName2) => {
   const thirdArtist =
     body.track_list[getRandomNumber(songCount)].track.artist_name;
   if (thirdArtist === artistName || thirdArtist === artistName2) {
-    return generateArtistName3();
+    generateArtistName3();
   } else {
     return thirdArtist;
   }
@@ -141,6 +141,8 @@ const optionSelectedView = (optionSelectedContent, optionButtons) => {
       button.classList.remove(`${button.className}`);
       button.removeAttribute("id");
       button.classList.add("optionSelectedContent");
+      const bottomAndRight = document.querySelector("#bottom-and-right");
+      bottomAndRight.appendChild(button);
     }
   });
 };

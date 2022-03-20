@@ -19,12 +19,26 @@ section {
   flex-wrap: wrap;
 }
 
+/* REMOVE GRID */
 footer {
   margin: 50px 0;
   justify-content: center;
   display: grid;
-  grid-template-columns: minmax(23px, 23px) minmax(23, 23px) minmax(23, 23px);
   color: white;
+}
+
+@media screen and (max-width: 500px) {
+  footer {
+    font-size: 0.7em;
+  }
+}
+
+/* add media too landing page img */
+@media screen and (max-width: 500px) {
+  #landing-page-img {
+    width: 300px;
+    height: 300px;
+  }
 }
 
 #top-and-left {
@@ -40,15 +54,26 @@ footer {
   flex: 1 1 300px; /*allows content to fill up the space up until the min hits 300px, then it will wrap over*/
 }
 
+/* CHANGE */
+@media screen and (min-width: 500px) {
+  #bottom-and-right {
+    max-height: 100px;
+  }
+}
 .lyrics-container {
   background-color: black;
   color: #feb321;
-  width: 75%;
   margin-bottom: 25px;
   padding: 20px;
   border-radius: 15px;
   font-family: inherit;
   width: fit-content;
+}
+
+@media screen and (max-width: 500px) {
+  .lyrics-container {
+    font-size: 0.7em;
+  }
 }
 
 #optionButton {
@@ -97,7 +122,7 @@ footer {
 }
 
 .optionSelectedContent {
-  transform: scale(1.5);
+  transform: scale(2.5);
   background-color: #fed79c;
   color: black;
   font-style: italic;
@@ -113,6 +138,17 @@ footer {
   width: 50px;
   text-align: center;
   justify-self: end;
+  position: absolute;
+  left: 90%;
+}
+
+/* CHANGE */
+@media screen and (max-width: 500px) {
+  .showScore {
+    position: absolute;
+    top: 5px;
+    left: 90%;
+  }
 }
 
 .nextRoundButton,
