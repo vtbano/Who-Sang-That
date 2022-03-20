@@ -50,7 +50,7 @@ footer {
   display: grid;
   place-items: center;
   justify-content: center;
-  flex: 1 1 300px; /*allows content to fill up the space up until the min hits 300px, then it will wrap over*/
+  flex: 1 1 300px; /*allows content to fill up the space up until the min hits 300px, then it will wrap over. Choose 300px for cellphone view*/
 }
 
 @media screen and (min-width: 500px) {
@@ -122,7 +122,10 @@ footer {
 }
 
 .optionSelectedContent {
-  transform: scale(2.5);
+  font-size: 1.5em;
+  padding: 1.5em;
+  margin: 1em;
+  width: fit-content;
   background-color: #fed79c;
   color: black;
   font-style: italic;
@@ -152,7 +155,7 @@ footer {
 
 .correctAnswerResponse,
 .wrongAnswerResponse {
-  padding: 5px;
+  padding: 10px;
   display: inherit;
   place-items: inherit;
   text-align: center;

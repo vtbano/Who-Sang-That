@@ -82,7 +82,7 @@ const generateArtistName2 = (body, songCount, artistName) => {
   const secondArtist =
     body.track_list[getRandomNumber(songCount)].track.artist_name;
   if (secondArtist === artistName) {
-    generateArtistName2();
+    generateArtistName2(body, songCount, artistName);
   } else {
     return secondArtist;
   }
@@ -92,7 +92,7 @@ const generateArtistName3 = (body, songCount, artistName, artistName2) => {
   const thirdArtist =
     body.track_list[getRandomNumber(songCount)].track.artist_name;
   if (thirdArtist === artistName || thirdArtist === artistName2) {
-    generateArtistName3();
+    generateArtistName3(body, songCount, artistName, artistName2);
   } else {
     return thirdArtist;
   }
