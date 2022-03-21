@@ -38,26 +38,32 @@ const nextRound = async (score) => {
     const bottomAndRight = document.querySelector("#bottom-and-right");
 
     const firstButton = document.createElement("button");
-    firstButton.classList.add("firstButton");
-    firstButton.setAttribute("id", "optionButton");
+    firstButton.classList.add("optionButton");
+    firstButton.setAttribute("id", "firstButton");
+    // firstButton.classList.add("firstButton");
+    // firstButton.setAttribute("id", "optionButton");
     firstButton.textContent = mixedArtistOrder[0];
     bottomAndRight.appendChild(firstButton);
 
     const secondButton = document.createElement("button");
-    secondButton.classList.add("secondButton");
-    secondButton.setAttribute("id", "optionButton");
+    secondButton.classList.add("optionButton");
+    secondButton.setAttribute("id", "secondButton");
+    // secondButton.classList.add("secondButton");
+    // secondButton.setAttribute("id", "optionButton");
     secondButton.textContent = mixedArtistOrder[1];
     bottomAndRight.appendChild(secondButton);
 
     const thirdButton = document.createElement("button");
-    thirdButton.classList.add("thirdButton");
-    thirdButton.setAttribute("id", "optionButton");
+    thirdButton.classList.add("optionButton");
+    thirdButton.setAttribute("id", "thirdButton");
+    // thirdButton.classList.add("thirdButton");
+    // thirdButton.setAttribute("id", "optionButton");
     thirdButton.textContent = mixedArtistOrder[2];
     bottomAndRight.appendChild(thirdButton);
 
     getLyrics(songName, artistName);
 
-    const optionButtons = document.querySelectorAll("#optionButton");
+    const optionButtons = document.querySelectorAll(".optionButton");
     optionButtons.forEach((button) => {
       button.addEventListener("click", () => {
         const optionSelectedContent = button.textContent;
@@ -328,7 +334,7 @@ const displayNextGameButton = (bottomAndRight, newScore) => {
 };
 
 const winDisplay = (score) => {
-  const optionButtons = document.querySelectorAll("#optionButton");
+  const optionButtons = document.querySelectorAll(".optionButton");
   optionButtons.forEach((button) => {
     button.remove();
   });
@@ -383,7 +389,7 @@ const winDisplay = (score) => {
 };
 
 const loseDisplay = (score) => {
-  const optionButtons = document.querySelectorAll("#optionButton");
+  const optionButtons = document.querySelectorAll(".optionButton");
   optionButtons.forEach((button) => {
     button.remove();
   });

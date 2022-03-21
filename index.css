@@ -76,7 +76,7 @@ footer {
   }
 }
 
-#optionButton {
+.optionButton {
   background-color: #fed79c;
   color: black;
   display: block;
@@ -88,7 +88,7 @@ footer {
   transition: all 150ms ease-in-out;
 }
 
-#optionButton:hover {
+.optionButton:hover {
   background-color: black;
   color: #feb321;
 }
@@ -124,7 +124,6 @@ footer {
 .optionSelectedContent {
   font-size: 1.5em;
   padding: 1.5em;
-  /* margin: 1em; */
   width: fit-content;
   background-color: #fed79c;
   color: black;
