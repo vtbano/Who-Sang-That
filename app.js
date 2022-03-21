@@ -40,24 +40,18 @@ const nextRound = async (score) => {
     const firstButton = document.createElement("button");
     firstButton.classList.add("optionButton");
     firstButton.setAttribute("id", "firstButton");
-    // firstButton.classList.add("firstButton");
-    // firstButton.setAttribute("id", "optionButton");
     firstButton.textContent = mixedArtistOrder[0];
     bottomAndRight.appendChild(firstButton);
 
     const secondButton = document.createElement("button");
     secondButton.classList.add("optionButton");
     secondButton.setAttribute("id", "secondButton");
-    // secondButton.classList.add("secondButton");
-    // secondButton.setAttribute("id", "optionButton");
     secondButton.textContent = mixedArtistOrder[1];
     bottomAndRight.appendChild(secondButton);
 
     const thirdButton = document.createElement("button");
     thirdButton.classList.add("optionButton");
     thirdButton.setAttribute("id", "thirdButton");
-    // thirdButton.classList.add("thirdButton");
-    // thirdButton.setAttribute("id", "optionButton");
     thirdButton.textContent = mixedArtistOrder[2];
     bottomAndRight.appendChild(thirdButton);
 
