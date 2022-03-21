@@ -17,8 +17,7 @@ const nextRound = async (score) => {
     const response = await fetch(
       `https://musixmatch-proxy.herokuapp.com/chart.tracks.get`
     );
-    const data = await response.json();
-    const body = data.message.body;
+    const body = await response.json();
     console.log(body);
     const songCount = body.track_list.length;
     const getRandomName = generateRandomName(songCount);
@@ -128,8 +127,7 @@ const getLyrics = async (songName, artistName) => {
     const response = await fetch(
       `https://musixmatch-proxy.herokuapp.com/matcher.lyrics.get?q_track=${songName}&q_artist=${artistName}`
     );
-    const data = await response.json();
-    const body = data.message.body;
+    const body = await response.json();
     const requiredLyrics = body.lyrics.lyrics_body;
     if (requiredLyrics === "") {
       // getLyrics(songName, artistName);
