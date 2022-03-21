@@ -170,7 +170,7 @@ footer {
   left: 90%;
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 600px) {
   .showScore {
     position: absolute;
     top: 5px;
