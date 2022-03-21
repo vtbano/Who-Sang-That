@@ -15,10 +15,11 @@ const playGame = () => {
 const nextRound = async (score) => {
   try {
     const response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/chart.tracks.get?chart_name=hot&page=1&page_size=50&country=US&f_has_lyrics=1&apikey=${apiKey}`
+      `https://musixmatch-proxy.herokuapp.com/chart.tracks.get`
     );
     const data = await response.json();
     const body = data.message.body;
+    console.log(body);
     const songCount = body.track_list.length;
     const getRandomName = generateRandomName(songCount);
     const songName = body.track_list[getRandomName].track.track_name; // Correct song name
@@ -82,8 +83,10 @@ const generateRandomName = (songCount) => getRandomNumber(songCount);
 
 const generateWinArtist = (body, getRandomName) => {
   const winArtist = body.track_list[getRandomName].track.artist_name;
-  if (winArtist === "") {
+  // console.log("WIN ARTIST:", winArtist);
+  if (winArtist === " ") {
     generateWinArtist(body, getRandomName);
+    console.log("REGENERATE ARTIST 1");
   } else {
     return winArtist;
   }
@@ -92,8 +95,10 @@ const generateWinArtist = (body, getRandomName) => {
 const generateArtistName2 = (body, songCount, artistName) => {
   const secondArtist =
     body.track_list[getRandomNumber(songCount)].track.artist_name;
-  if (secondArtist === artistName || secondArtist === "") {
+  // console.log("SECOND ARTIST:", secondArtist);
+  if (secondArtist === artistName || secondArtist === " ") {
     generateArtistName2(body, songCount, artistName);
+    console.log("REGENERATE ARTIST 2");
   } else {
     return secondArtist;
   }
@@ -102,12 +107,14 @@ const generateArtistName2 = (body, songCount, artistName) => {
 const generateArtistName3 = (body, songCount, artistName, artistName2) => {
   const thirdArtist =
     body.track_list[getRandomNumber(songCount)].track.artist_name;
+  // console.log("THIRD ARTIST:", thirdArtist);
   if (
     thirdArtist === artistName ||
     thirdArtist === artistName2 ||
-    thirdArtist === ""
+    thirdArtist === " "
   ) {
     generateArtistName3(body, songCount, artistName, artistName2);
+    console.log("REGENERATE ARTIST 3");
   } else {
     return thirdArtist;
   }
@@ -119,7 +126,7 @@ playButton.addEventListener("click", playGame);
 const getLyrics = async (songName, artistName) => {
   try {
     const response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://api.musixmatch.com/ws/1.1/matcher.lyrics.get?q_track=${songName}&q_artist=${artistName}&apikey=${apiKey}`
+      `https://musixmatch-proxy.herokuapp.com/matcher.lyrics.get?q_track=${songName}&q_artist=${artistName}`
     );
     const data = await response.json();
     const body = data.message.body;
