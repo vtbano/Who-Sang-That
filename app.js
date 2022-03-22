@@ -3,10 +3,10 @@ const playGame = () => {
   const landingPageImage = document.querySelector("#landing-page-img");
   landingPageImage.remove();
 
-  const gameDescription = document.querySelector(".gameDescription");
+  const gameDescription = document.querySelector(".game-description");
   gameDescription.remove();
 
-  const playButton = document.querySelector(".playButton");
+  const playButton = document.querySelector(".play-button");
   playButton.remove();
 
   nextRound(initialscore);
@@ -119,7 +119,7 @@ const generateArtistName3 = (body, songCount, artistName, artistName2) => {
   }
 };
 
-const playButton = document.querySelector(".playButton");
+const playButton = document.querySelector(".play-button");
 playButton.addEventListener("click", playGame);
 
 const getLyrics = async (songName, artistName) => {
@@ -224,7 +224,7 @@ const optionSelectedSetTimeoutInit = (
 
 const displayNewScore = (score) => {
   if (score.completed <= 9) {
-    const largeScreenDisplay = document.querySelector("#bottomInfo"); //will adjust with css flex
+    const largeScreenDisplay = document.querySelector("#bottom-info"); //will adjust with css flex
     const showScore = document.createElement("span");
     showScore.classList.add("showScore");
     showScore.textContent = `${score.correct}/${score.completed}`;

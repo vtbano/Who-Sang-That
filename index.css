@@ -93,7 +93,7 @@ footer {
   color: #feb321;
 }
 
-.playButton {
+.play-button {
   background-color: black;
   color: #feb321;
   font-size: 15px;
@@ -107,12 +107,12 @@ footer {
   transition: all 100ms ease;
 }
 
-.playButton:hover {
+.play-button:hover {
   border: 2px solid #fed79c;
   font-size: large;
 }
 
-.gameDescription {
+.game-description {
   color: white;
   border: 1px solid white;
   padding: 20px;
