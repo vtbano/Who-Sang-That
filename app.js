@@ -247,7 +247,7 @@ const displayNewScore = (score) => {
   }
 };
 
-const removeDisplayScore = (score) => {
+const checkWinnerRemoveScore = (score) => {
   if (score.completed >= 2 && score.completed <= 9) {
     console.log("success score removed");
     const removeScore = document.querySelector(".showScore");
@@ -300,7 +300,7 @@ const correctOptionSelected = (
   correctImg.classList.add("correctImg");
   correctImg.src = "https://giphy.com/embed/xuXzcHMkuwvf2";
   bottomAndRight.appendChild(correctImg);
-  removeDisplayScore(score);
+  checkWinnerRemoveScore(score);
   displayNewScore(score);
 };
 
@@ -323,7 +323,7 @@ const wrongOptionSelected = (
   wrongImg.classList.add("wrongImg");
   wrongImg.src = "https://giphy.com/embed/dICjAqixKQFnG";
   bottomAndRight.appendChild(wrongImg);
-  removeDisplayScore(score);
+  checkWinnerRemoveScore(score);
   displayNewScore(score);
 };
 
