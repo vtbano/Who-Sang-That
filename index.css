@@ -185,8 +185,7 @@ footer {
   place-items: inherit;
   text-align: center;
 }
-.nextRoundButton,
-.nextGameButton {
+.next-round-and-game-button {
   background-color: #feb321;
   color: white;
   border: 2px solid white;
@@ -201,8 +200,7 @@ footer {
   transition: all 100ms ease;
 }
 
-.nextRoundButton:hover,
-.nextGameButton:hover {
+.next-round-and-game-button:hover {
   border: 2px solid #feb321;
   background-color: black;
   color: #feb321;

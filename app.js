@@ -110,7 +110,7 @@ const generateArtistName3 = (body, songCount, artistName, artistName2) => {
   if (
     thirdArtist === artistName ||
     thirdArtist === artistName2 ||
-    thirdArtist === " "
+    thirdArtist === ""
   ) {
     generateArtistName3(body, songCount, artistName, artistName2);
     console.log("REGENERATE ARTIST 3");
@@ -133,18 +133,29 @@ const getLyrics = async (songName, artistName) => {
       // getLyrics(songName, artistName);
       console.log("BLANK LYRICS");
     } else {
-      const [lyricsPart1, notCommericalUse] = requiredLyrics.split("*******");
-      const topAndLeft = document.querySelector("#top-and-left");
-      const showLyrics = document.createElement("pre");
-      showLyrics.classList.add("lyrics-container");
-      showLyrics.textContent = lyricsPart1;
-      topAndLeft.appendChild(showLyrics);
-      console.log(body);
+      displayLyrics(body, requiredLyrics);
+      // const [lyricsPart1, notCommericalUse] = requiredLyrics.split("*******");
+      // const topAndLeft = document.querySelector("#top-and-left");
+      // const showLyrics = document.createElement("pre");
+      // showLyrics.classList.add("lyrics-container");
+      // showLyrics.textContent = lyricsPart1;
+      // topAndLeft.appendChild(showLyrics);
+      // console.log(body);
     }
   } catch (err) {
     // getLyrics(songName, artistName);
     console.log("ERROR LYRICS");
   }
+};
+
+const displayLyrics = (body, requiredLyrics) => {
+  const [lyricsPart1, notCommericalUse] = requiredLyrics.split("*******");
+  const topAndLeft = document.querySelector("#top-and-left");
+  const showLyrics = document.createElement("pre");
+  showLyrics.classList.add("lyrics-container");
+  showLyrics.textContent = lyricsPart1;
+  topAndLeft.appendChild(showLyrics);
+  console.log(body);
 };
 
 const shuffle = (array) => {
@@ -319,7 +330,7 @@ const wrongOptionSelected = (
 const displayNextGameButton = (bottomAndRight, newScore) => {
   if (newScore.completed >= 1 && newScore.completed <= 9) {
     const nextGameButton = document.createElement("button");
-    nextGameButton.classList.add("nextGameButton");
+    nextGameButton.classList.add("next-round-and-game-button");
     nextGameButton.textContent = "Hit me with the next tune ♫";
     bottomAndRight.appendChild(nextGameButton);
     nextGameButton.addEventListener("click", () => {
@@ -417,7 +428,7 @@ const loseDisplay = (score) => {
 
 const displayNextRoundButton = () => {
   const nextRoundButton = document.createElement("button");
-  nextRoundButton.classList.add("nextRoundButton");
+  nextRoundButton.classList.add("next-round-and-game-button");
   nextRoundButton.textContent = "New Round of tunes ♫";
   const bottomAndRight = document.querySelector("#bottom-and-right");
   bottomAndRight.appendChild(nextRoundButton);
