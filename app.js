@@ -83,7 +83,7 @@ const generateRandomName = (songCount) => getRandomNumber(songCount);
 const generateWinArtist = (body, getRandomName) => {
   const winArtist = body.track_list[getRandomName].track.artist_name;
   // console.log("WIN ARTIST:", winArtist);
-  if (winArtist === " ") {
+  if (winArtist === "") {
     generateWinArtist(body, getRandomName);
     console.log("REGENERATE ARTIST 1");
   } else {
@@ -95,7 +95,7 @@ const generateArtistName2 = (body, songCount, artistName) => {
   const secondArtist =
     body.track_list[getRandomNumber(songCount)].track.artist_name;
   // console.log("SECOND ARTIST:", secondArtist);
-  if (secondArtist === artistName || secondArtist === " ") {
+  if (secondArtist === artistName || secondArtist === "") {
     generateArtistName2(body, songCount, artistName);
     console.log("REGENERATE ARTIST 2");
   } else {
@@ -134,13 +134,6 @@ const getLyrics = async (songName, artistName) => {
       console.log("BLANK LYRICS");
     } else {
       displayLyrics(body, requiredLyrics);
-      // const [lyricsPart1, notCommericalUse] = requiredLyrics.split("*******");
-      // const topAndLeft = document.querySelector("#top-and-left");
-      // const showLyrics = document.createElement("pre");
-      // showLyrics.classList.add("lyrics-container");
-      // showLyrics.textContent = lyricsPart1;
-      // topAndLeft.appendChild(showLyrics);
-      // console.log(body);
     }
   } catch (err) {
     // getLyrics(songName, artistName);
@@ -214,8 +207,6 @@ const optionSelectedSetTimeoutInit = (
       showCorrectDisplay(optionSelectedContent, bottomAndRight);
       removeOptionButtons(optionButtons, newScore);
       displayNextGameButton(bottomAndRight, newScore);
-      checkWinnerRemoveScore(score);
-      displayNewScore(score);
     }, 3000);
   } else {
     const newScore = {
@@ -227,8 +218,6 @@ const optionSelectedSetTimeoutInit = (
       showWrongDisplay(optionSelectedContent, bottomAndRight);
       removeOptionButtons(optionButtons, newScore);
       displayNextGameButton(bottomAndRight, newScore);
-      checkWinnerRemoveScore(score);
-      displayNewScore(score);
     }, 3000);
   }
 };
@@ -278,6 +267,8 @@ const removeOptionButtons = (optionButtons, score) => {
   optionButtons.forEach((button) => {
     button.remove();
   });
+  checkWinnerRemoveScore(score);
+  displayNewScore(score);
 };
 const showCorrectDisplay = (optionSelectedContent, bottomAndRight) => {
   bottomAndRight.textContent = "";
