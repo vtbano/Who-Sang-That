@@ -256,29 +256,26 @@ const checkWinnerRemoveScore = (score) => {
     console.log("initial play");
   } else if (score.correct >= 6 && score.completed === 10) {
     console.log("WIN");
-    const removeScore = document.querySelector(".showScore");
-    const bottomAndRight = document.querySelector("#bottom-and-right");
-    const topAndLeft = document.querySelector("#top-and-left");
-    console.log("removeScore from win:", removeScore);
-    removeScore.remove();
-    bottomAndRight.textContent = "";
-    topAndLeft.textContent = "";
+    removeScoreFinalWinLose();
     winDisplay(score);
     displayNextRoundButton();
     return;
   } else if (score.correct <= 5 && score.completed === 10) {
     console.log("LOSE");
-    const removeScore = document.querySelector(".showScore");
-    const bottomAndRight = document.querySelector("#bottom-and-right");
-    const topAndLeft = document.querySelector("#top-and-left");
-    console.log("removeScore from LOSE:", removeScore);
-    removeScore.remove();
-    bottomAndRight.textContent = "";
-    topAndLeft.textContent = "";
+    removeScoreFinalWinLose();
     loseDisplay(score);
     displayNextRoundButton();
     return;
   }
+};
+
+removeScoreFinalWinLose = () => {
+  const removeScore = document.querySelector(".showScore");
+  const bottomAndRight = document.querySelector("#bottom-and-right");
+  const topAndLeft = document.querySelector("#top-and-left");
+  removeScore.remove();
+  bottomAndRight.textContent = "";
+  topAndLeft.textContent = "";
 };
 
 const correctOptionSelected = (
