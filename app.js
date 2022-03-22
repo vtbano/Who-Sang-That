@@ -214,6 +214,8 @@ const optionSelectedSetTimeoutInit = (
       showCorrectDisplay(optionSelectedContent, bottomAndRight);
       removeOptionButtons(optionButtons, newScore);
       displayNextGameButton(bottomAndRight, newScore);
+      checkWinnerRemoveScore(score);
+      displayNewScore(score);
     }, 3000);
   } else {
     const newScore = {
@@ -225,6 +227,8 @@ const optionSelectedSetTimeoutInit = (
       showWrongDisplay(optionSelectedContent, bottomAndRight);
       removeOptionButtons(optionButtons, newScore);
       displayNextGameButton(bottomAndRight, newScore);
+      checkWinnerRemoveScore(score);
+      displayNewScore(score);
     }, 3000);
   }
 };
@@ -274,8 +278,6 @@ const removeOptionButtons = (optionButtons, score) => {
   optionButtons.forEach((button) => {
     button.remove();
   });
-  checkWinnerRemoveScore(score);
-  displayNewScore(score);
 };
 const showCorrectDisplay = (optionSelectedContent, bottomAndRight) => {
   bottomAndRight.textContent = "";
