@@ -211,12 +211,8 @@ const optionSelectedSetTimeoutInit = (
       completed: score.completed + 1,
     };
     setTimeout(() => {
-      correctOptionSelected(
-        optionSelectedContent,
-        bottomAndRight,
-        optionButtons,
-        newScore
-      );
+      showCorrectDisplay(optionSelectedContent, bottomAndRight);
+      removeOptionButtons(optionButtons, newScore);
       displayNextGameButton(bottomAndRight, newScore);
     }, 3000);
   } else {
@@ -226,12 +222,8 @@ const optionSelectedSetTimeoutInit = (
       completed: score.completed + 1,
     };
     setTimeout(() => {
-      wrongOptionSelected(
-        optionSelectedContent,
-        bottomAndRight,
-        optionButtons,
-        newScore
-      );
+      showWrongDisplay(optionSelectedContent, bottomAndRight);
+      removeOptionButtons(optionButtons, newScore);
       displayNextGameButton(bottomAndRight, newScore);
     }, 3000);
   }
@@ -278,15 +270,14 @@ removeScoreFinalWinLose = () => {
   topAndLeft.textContent = "";
 };
 
-const correctOptionSelected = (
-  optionSelectedContent,
-  bottomAndRight,
-  optionButtons,
-  score
-) => {
+const removeOptionButtons = (optionButtons, score) => {
   optionButtons.forEach((button) => {
     button.remove();
   });
+  checkWinnerRemoveScore(score);
+  displayNewScore(score);
+};
+const showCorrectDisplay = (optionSelectedContent, bottomAndRight) => {
   bottomAndRight.textContent = "";
   const correctAnswerResponse = document.createElement("div");
   correctAnswerResponse.classList.add("correctAnswerResponse");
@@ -297,19 +288,9 @@ const correctOptionSelected = (
   correctImg.classList.add("correctImg");
   correctImg.src = "https://giphy.com/embed/xuXzcHMkuwvf2";
   bottomAndRight.appendChild(correctImg);
-  checkWinnerRemoveScore(score);
-  displayNewScore(score);
 };
 
-const wrongOptionSelected = (
-  optionSelectedContent,
-  bottomAndRight,
-  optionButtons,
-  score
-) => {
-  optionButtons.forEach((button) => {
-    button.remove();
-  });
+const showWrongDisplay = (optionSelectedContent, bottomAndRight) => {
   bottomAndRight.textContent = "";
   const wrongAnswerResponse = document.createElement("div");
   wrongAnswerResponse.classList.add("wrongAnswerResponse");
@@ -320,8 +301,6 @@ const wrongOptionSelected = (
   wrongImg.classList.add("wrongImg");
   wrongImg.src = "https://giphy.com/embed/dICjAqixKQFnG";
   bottomAndRight.appendChild(wrongImg);
-  checkWinnerRemoveScore(score);
-  displayNewScore(score);
 };
 
 const displayNextGameButton = (bottomAndRight, newScore) => {
