@@ -68,6 +68,7 @@ footer {
   border-radius: 15px;
   font-family: inherit;
   height: fit-content;
+  overflow-x: scroll;
 }
 
 @media screen and (max-width: 500px) {
