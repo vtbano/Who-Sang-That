@@ -81,7 +81,7 @@ const generateArtistName2 = (body, artistName) => {
   if (secondArtist === artistName) {
     generateArtistName2(body, artistName);
     console.log("Duplication: Regenerate Artist 2");
-  } else if (secondArtist === "") {
+  } else if (secondArtist.length === 0) {
     generateArtistName2(body, artistName);
     console.log("Blank: Regenerate Artist 2");
   } else {
@@ -98,7 +98,7 @@ const generateArtistName3 = (body, artistName, artistName2) => {
   } else if (thirdArtist === artistName2) {
     generateArtistName3(body, artistName, artistName2);
     console.log("Duplication of second artist: Regenerate Artist 3");
-  } else if (thirdArtist === "") {
+  } else if (thirdArtist.length === 0) {
     generateArtistName3(body, artistName, artistName2);
     console.log("Blank: Regenerate Artist 3");
   } else {
@@ -117,7 +117,7 @@ const getTrackLyrics = async (trackId) => {
     const body = await response.json();
     const requiredLyrics = body.lyrics.lyrics_body;
     console.log("getTrackLyrics Body:", body);
-    if (requiredLyrics === "") {
+    if (requiredLyrics === "" || requiredLyrics.length === 0) {
       getTrackLyrics(trackId);
       console.log("Blank Lyrics with Track.Lyrics.get");
     } else {
