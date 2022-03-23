@@ -13,83 +13,73 @@ const playGame = () => {
 };
 
 const nextRound = async (score) => {
-  try {
-    const response = await fetch(
-      `https://musixmatch-proxy.herokuapp.com/chart.tracks.get`
-    );
-    const body = await response.json();
-    console.log(body);
-    const songCount = body.track_list.length;
-    const getRandomName = generateRandomName(songCount);
-    const songName = body.track_list[getRandomName].track.track_name; // Correct song name
-    const artistName = generateWinArtist(body, getRandomName); // Correct artist name
-    const artistName2 = generateArtistName2(body, songCount, artistName);
-    const artistName3 = generateArtistName3(
-      body,
-      songCount,
-      artistName,
-      artistName2
-    );
+  // try {
+  const response = await fetch(
+    `https://musixmatch-proxy.herokuapp.com/chart.tracks.get`
+  );
+  const body = await response.json();
+  console.log(body);
+  const songCount = body.track_list.length;
+  const getArtist = getRandomNumber(songCount);
+  const commonTrackId = body.track_list[getArtist].track.commontrack_id;
+  console.log("common track id:", commonTrackId);
+  const songName = body.track_list[getArtist].track.track_name; // Correct song name
+  const artistName = body.track_list[getArtist].track.artist_name; // Correct artist name
+  const artistName2 = generateArtistName2(body, songCount, artistName);
+  const artistName3 = generateArtistName3(
+    body,
+    songCount,
+    artistName,
+    artistName2
+  );
 
-    const artistArray = [artistName, artistName2, artistName3];
+  const artistArray = [artistName, artistName2, artistName3];
 
-    const mixedArtistOrder = shuffle(artistArray);
+  const mixedArtistOrder = shuffle(artistArray);
 
-    const bottomAndRight = document.querySelector("#bottom-and-right");
+  const bottomAndRight = document.querySelector("#bottom-and-right");
 
-    const firstButton = document.createElement("button");
-    firstButton.classList.add("optionButton");
-    firstButton.setAttribute("id", "firstButton");
-    firstButton.textContent = mixedArtistOrder[0];
-    bottomAndRight.appendChild(firstButton);
+  const firstButton = document.createElement("button");
+  firstButton.classList.add("optionButton");
+  firstButton.setAttribute("id", "firstButton");
+  firstButton.textContent = mixedArtistOrder[0];
+  bottomAndRight.appendChild(firstButton);
 
-    const secondButton = document.createElement("button");
-    secondButton.classList.add("optionButton");
-    secondButton.setAttribute("id", "secondButton");
-    secondButton.textContent = mixedArtistOrder[1];
-    bottomAndRight.appendChild(secondButton);
+  const secondButton = document.createElement("button");
+  secondButton.classList.add("optionButton");
+  secondButton.setAttribute("id", "secondButton");
+  secondButton.textContent = mixedArtistOrder[1];
+  bottomAndRight.appendChild(secondButton);
 
-    const thirdButton = document.createElement("button");
-    thirdButton.classList.add("optionButton");
-    thirdButton.setAttribute("id", "thirdButton");
-    thirdButton.textContent = mixedArtistOrder[2];
-    bottomAndRight.appendChild(thirdButton);
+  const thirdButton = document.createElement("button");
+  thirdButton.classList.add("optionButton");
+  thirdButton.setAttribute("id", "thirdButton");
+  thirdButton.textContent = mixedArtistOrder[2];
+  bottomAndRight.appendChild(thirdButton);
 
-    getLyrics(songName, artistName);
+  // getLyrics(songName, artistName);
+  getTrackLyrics(commonTrackId);
 
-    const optionButtons = document.querySelectorAll(".optionButton");
-    optionButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const optionSelectedContent = button.textContent;
-        optionSelectedView(optionSelectedContent, optionButtons);
-        optionSelectedSetTimeoutInit(
-          artistName,
-          optionSelectedContent,
-          optionButtons,
-          bottomAndRight,
-          score
-        );
-      });
+  const optionButtons = document.querySelectorAll(".optionButton");
+  optionButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const optionSelectedContent = button.textContent;
+      optionSelectedView(optionSelectedContent, optionButtons);
+      optionSelectedSetTimeoutInit(
+        artistName,
+        optionSelectedContent,
+        optionButtons,
+        bottomAndRight,
+        score
+      );
     });
-  } catch (err) {
-    console.log("ERROR");
-  }
+  });
+  // } catch (err) {
+  // console.log("ERROR");
+  // }
 };
 
 const getRandomNumber = (max) => Math.floor(Math.random() * max);
-
-const generateRandomName = (songCount) => getRandomNumber(songCount);
-
-const generateWinArtist = (body, getRandomName) => {
-  const winArtist = body.track_list[getRandomName].track.artist_name;
-  // console.log("WIN ARTIST:", winArtist);
-  if (winArtist === "") {
-    generateWinArtist(body, getRandomName);
-    console.log("REGENERATE ARTIST 1");
-  } else {
-    return winArtist;
-  }
-};
 
 const generateArtistName2 = (body, songCount, artistName) => {
   const secondArtist =
@@ -122,22 +112,23 @@ const generateArtistName3 = (body, songCount, artistName, artistName2) => {
 const playButton = document.querySelector(".play-button");
 playButton.addEventListener("click", playGame);
 
-const getLyrics = async (songName, artistName) => {
+const getTrackLyrics = async (trackId) => {
   try {
     const response = await fetch(
-      `https://musixmatch-proxy.herokuapp.com/matcher.lyrics.get?q_track=${songName}&q_artist=${artistName}`
+      `https://musixmatch-proxy.herokuapp.com/track.lyrics.get?commontrack_id=${trackId}`
     );
     const body = await response.json();
     const requiredLyrics = body.lyrics.lyrics_body;
+    console.log("getTrackLyrics Body:", body);
     if (requiredLyrics === "") {
-      // getLyrics(songName, artistName);
-      console.log("BLANK LYRICS");
+      getTrackLyrics(trackId);
+      console.log("Blank Lyrics with Track.Lyrics.get");
     } else {
       displayLyrics(body, requiredLyrics);
     }
   } catch (err) {
-    // getLyrics(songName, artistName);
-    console.log("ERROR LYRICS");
+    getTrackLyrics(trackId);
+    console.log("Error calling Lyrics with Track.Lyrics.get");
   }
 };
 
