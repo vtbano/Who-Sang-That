@@ -21,9 +21,9 @@ const nextRound = async (score) => {
   console.log(body);
   const songCount = body.track_list.length;
   const getArtist = getRandomNumber(songCount);
-  const commonTrackId = body.track_list[getArtist].track.commontrack_id;
-  console.log("common track id:", commonTrackId);
-  const songName = body.track_list[getArtist].track.track_name; // Correct song name
+  console.log(getArtist);
+  const commonTrackId = body.track_list[getArtist].track.commontrack_id; //Correct track id to retrieve lyrics
+  // console.log("common track id:", commonTrackId);
   const artistName = body.track_list[getArtist].track.artist_name; // Correct artist name
   const artistName2 = generateArtistName2(body, songCount, artistName);
   const artistName3 = generateArtistName3(
@@ -40,27 +40,26 @@ const nextRound = async (score) => {
   const bottomAndRight = document.querySelector("#bottom-and-right");
 
   const firstButton = document.createElement("button");
-  firstButton.classList.add("optionButton");
+  firstButton.classList.add("option-button");
   firstButton.setAttribute("id", "firstButton");
   firstButton.textContent = mixedArtistOrder[0];
   bottomAndRight.appendChild(firstButton);
 
   const secondButton = document.createElement("button");
-  secondButton.classList.add("optionButton");
+  secondButton.classList.add("option-button");
   secondButton.setAttribute("id", "secondButton");
   secondButton.textContent = mixedArtistOrder[1];
   bottomAndRight.appendChild(secondButton);
 
   const thirdButton = document.createElement("button");
-  thirdButton.classList.add("optionButton");
+  thirdButton.classList.add("option-button");
   thirdButton.setAttribute("id", "thirdButton");
   thirdButton.textContent = mixedArtistOrder[2];
   bottomAndRight.appendChild(thirdButton);
 
-  // getLyrics(songName, artistName);
   getTrackLyrics(commonTrackId);
 
-  const optionButtons = document.querySelectorAll(".optionButton");
+  const optionButtons = document.querySelectorAll(".option-button");
   optionButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const optionSelectedContent = button.textContent;
@@ -84,10 +83,12 @@ const getRandomNumber = (max) => Math.floor(Math.random() * max);
 const generateArtistName2 = (body, songCount, artistName) => {
   const secondArtist =
     body.track_list[getRandomNumber(songCount)].track.artist_name;
-  // console.log("SECOND ARTIST:", secondArtist);
-  if (secondArtist === artistName || secondArtist === "") {
+  if (secondArtist === artistName) {
     generateArtistName2(body, songCount, artistName);
-    console.log("REGENERATE ARTIST 2");
+    console.log("Duplication: Regenerate Artist 2");
+  } else if (secondArtist === "") {
+    generateArtistName2(body, songCount, artistName);
+    console.log("Blank: Regenerate Artist 2");
   } else {
     return secondArtist;
   }
@@ -96,14 +97,15 @@ const generateArtistName2 = (body, songCount, artistName) => {
 const generateArtistName3 = (body, songCount, artistName, artistName2) => {
   const thirdArtist =
     body.track_list[getRandomNumber(songCount)].track.artist_name;
-  // console.log("THIRD ARTIST:", thirdArtist);
-  if (
-    thirdArtist === artistName ||
-    thirdArtist === artistName2 ||
-    thirdArtist === ""
-  ) {
+  if (thirdArtist === artistName) {
     generateArtistName3(body, songCount, artistName, artistName2);
-    console.log("REGENERATE ARTIST 3");
+    console.log("Duplication of main artist: Regenerate Artist 3");
+  } else if (thirdArtist === artistName2) {
+    generateArtistName3(body, songCount, artistName, artistName2);
+    console.log("Duplication of second artist: Regenerate Artist 3");
+  } else if (thirdArtist === "") {
+    generateArtistName3(body, songCount, artistName, artistName2);
+    console.log("Blank: Regenerate Artist 3");
   } else {
     return thirdArtist;
   }
@@ -215,7 +217,7 @@ const optionSelectedSetTimeoutInit = (
 
 const displayNewScore = (score) => {
   if (score.completed <= 9) {
-    const largeScreenDisplay = document.querySelector("#bottom-info"); //will adjust with css flex
+    const largeScreenDisplay = document.querySelector("#bottom-info");
     const showScore = document.createElement("span");
     showScore.classList.add("showScore");
     showScore.textContent = `${score.correct}/${score.completed}`;
@@ -304,7 +306,7 @@ const displayNextGameButton = (bottomAndRight, newScore) => {
 };
 
 const winDisplay = (score) => {
-  const optionButtons = document.querySelectorAll(".optionButton");
+  const optionButtons = document.querySelectorAll(".option-button");
   optionButtons.forEach((button) => {
     button.remove();
   });
@@ -359,7 +361,7 @@ const winDisplay = (score) => {
 };
 
 const loseDisplay = (score) => {
-  const optionButtons = document.querySelectorAll(".optionButton");
+  const optionButtons = document.querySelectorAll(".option-button");
   optionButtons.forEach((button) => {
     button.remove();
   });
