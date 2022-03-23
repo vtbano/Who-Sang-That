@@ -25,13 +25,8 @@ const nextRound = async (score) => {
   const commonTrackId = body.track_list[getArtist].track.commontrack_id; //Correct track id to retrieve lyrics
   // console.log("common track id:", commonTrackId);
   const artistName = body.track_list[getArtist].track.artist_name; // Correct artist name
-  const artistName2 = generateArtistName2(body, songCount, artistName);
-  const artistName3 = generateArtistName3(
-    body,
-    songCount,
-    artistName,
-    artistName2
-  );
+  const artistName2 = generateArtistName2(body, artistName);
+  const artistName3 = generateArtistName3(body, artistName, artistName2);
 
   const artistArray = [artistName, artistName2, artistName3];
 
@@ -80,31 +75,31 @@ const nextRound = async (score) => {
 
 const getRandomNumber = (max) => Math.floor(Math.random() * max);
 
-const generateArtistName2 = (body, songCount, artistName) => {
+const generateArtistName2 = (body, artistName) => {
   const secondArtist =
-    body.track_list[getRandomNumber(songCount)].track.artist_name;
+    body.track_list[getRandomNumber(body.track_list.length)].track.artist_name;
   if (secondArtist === artistName) {
-    generateArtistName2(body, songCount, artistName);
+    generateArtistName2(body, artistName);
     console.log("Duplication: Regenerate Artist 2");
   } else if (secondArtist === "") {
-    generateArtistName2(body, songCount, artistName);
+    generateArtistName2(body, artistName);
     console.log("Blank: Regenerate Artist 2");
   } else {
     return secondArtist;
   }
 };
 
-const generateArtistName3 = (body, songCount, artistName, artistName2) => {
+const generateArtistName3 = (body, artistName, artistName2) => {
   const thirdArtist =
-    body.track_list[getRandomNumber(songCount)].track.artist_name;
+    body.track_list[getRandomNumber(body.track_list.length)].track.artist_name;
   if (thirdArtist === artistName) {
-    generateArtistName3(body, songCount, artistName, artistName2);
+    generateArtistName3(body, artistName, artistName2);
     console.log("Duplication of main artist: Regenerate Artist 3");
   } else if (thirdArtist === artistName2) {
-    generateArtistName3(body, songCount, artistName, artistName2);
+    generateArtistName3(body, artistName, artistName2);
     console.log("Duplication of second artist: Regenerate Artist 3");
   } else if (thirdArtist === "") {
-    generateArtistName3(body, songCount, artistName, artistName2);
+    generateArtistName3(body, artistName, artistName2);
     console.log("Blank: Regenerate Artist 3");
   } else {
     return thirdArtist;
