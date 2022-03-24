@@ -63,12 +63,31 @@ footer {
 .lyrics-container {
   background-color: black;
   color: #feb321;
+  margin-left: 25px;
   margin-bottom: 25px;
   padding: 20px;
   border-radius: 15px;
   font-family: inherit;
   height: fit-content;
+  width: 90%;
   overflow-x: scroll;
+}
+
+.lyrics-container::-webkit-scrollbar {
+  width: 25px;
+}
+
+.lyrics-container::-webkit-scrollbar-track {
+  box-shadow: #fed79c;
+}
+
+.lyrics-container::-webkit-scrollbar-thumb {
+  background-color: #fed79c;
+  outline: 1px solid white;
+}
+
+.lyrics-container::-webkit-scrollbar-corner {
+  border-radius: 15px;
 }
 
 @media screen and (max-width: 500px) {

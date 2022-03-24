@@ -26,7 +26,6 @@ const nextRound = async (score) => {
       const songCount = body.track_list.length;
       const getArtist = getRandomNumber(songCount);
       const commonTrackId = body.track_list[getArtist].track.commontrack_id; //Correct track id to retrieve lyrics
-      // console.log("common track id:", commonTrackId);
       const artistName = body.track_list[getArtist].track.artist_name; // Correct artist name
       const artistName2 = generateArtistName2(body, artistName);
       const artistName3 = generateArtistName3(body, artistName, artistName2);
