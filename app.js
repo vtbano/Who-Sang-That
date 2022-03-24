@@ -13,64 +13,68 @@ const playGame = () => {
 };
 
 const nextRound = async (score) => {
-  // try {
-  const response = await fetch(
-    `https://musixmatch-proxy.herokuapp.com/chart.tracks.get`
-  );
-  const body = await response.json();
-  console.log(body);
-  const songCount = body.track_list.length;
-  const getArtist = getRandomNumber(songCount);
-  console.log(getArtist);
-  const commonTrackId = body.track_list[getArtist].track.commontrack_id; //Correct track id to retrieve lyrics
-  // console.log("common track id:", commonTrackId);
-  const artistName = body.track_list[getArtist].track.artist_name; // Correct artist name
-  const artistName2 = generateArtistName2(body, artistName);
-  const artistName3 = generateArtistName3(body, artistName, artistName2);
+  try {
+    const response = await fetch(
+      `https://musixmatch-proxy.herokuapp.com/chart.tracks.get`
+    );
+    const body = await response.json();
+    if (body.track_list.length === 0) {
+      console.log("Initial Track List is blank");
+      nextRound(score);
+    } else {
+      console.log(body);
+      const songCount = body.track_list.length;
+      const getArtist = getRandomNumber(songCount);
+      const commonTrackId = body.track_list[getArtist].track.commontrack_id; //Correct track id to retrieve lyrics
+      // console.log("common track id:", commonTrackId);
+      const artistName = body.track_list[getArtist].track.artist_name; // Correct artist name
+      const artistName2 = generateArtistName2(body, artistName);
+      const artistName3 = generateArtistName3(body, artistName, artistName2);
 
-  const artistArray = [artistName, artistName2, artistName3];
+      const artistArray = [artistName, artistName2, artistName3];
 
-  const mixedArtistOrder = shuffle(artistArray);
+      const mixedArtistOrder = shuffle(artistArray);
 
-  const bottomAndRight = document.querySelector("#bottom-and-right");
+      const bottomAndRight = document.querySelector("#bottom-and-right");
 
-  const firstButton = document.createElement("button");
-  firstButton.classList.add("option-button");
-  firstButton.setAttribute("id", "firstButton");
-  firstButton.textContent = mixedArtistOrder[0];
-  bottomAndRight.appendChild(firstButton);
+      const firstButton = document.createElement("button");
+      firstButton.classList.add("option-button");
+      firstButton.setAttribute("id", "firstButton");
+      firstButton.textContent = mixedArtistOrder[0];
+      bottomAndRight.appendChild(firstButton);
 
-  const secondButton = document.createElement("button");
-  secondButton.classList.add("option-button");
-  secondButton.setAttribute("id", "secondButton");
-  secondButton.textContent = mixedArtistOrder[1];
-  bottomAndRight.appendChild(secondButton);
+      const secondButton = document.createElement("button");
+      secondButton.classList.add("option-button");
+      secondButton.setAttribute("id", "secondButton");
+      secondButton.textContent = mixedArtistOrder[1];
+      bottomAndRight.appendChild(secondButton);
 
-  const thirdButton = document.createElement("button");
-  thirdButton.classList.add("option-button");
-  thirdButton.setAttribute("id", "thirdButton");
-  thirdButton.textContent = mixedArtistOrder[2];
-  bottomAndRight.appendChild(thirdButton);
+      const thirdButton = document.createElement("button");
+      thirdButton.classList.add("option-button");
+      thirdButton.setAttribute("id", "thirdButton");
+      thirdButton.textContent = mixedArtistOrder[2];
+      bottomAndRight.appendChild(thirdButton);
 
-  getTrackLyrics(commonTrackId);
+      getTrackLyrics(commonTrackId);
 
-  const optionButtons = document.querySelectorAll(".option-button");
-  optionButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const optionSelectedContent = button.textContent;
-      optionSelectedView(optionSelectedContent, optionButtons);
-      optionSelectedSetTimeoutInit(
-        artistName,
-        optionSelectedContent,
-        optionButtons,
-        bottomAndRight,
-        score
-      );
-    });
-  });
-  // } catch (err) {
-  // console.log("ERROR");
-  // }
+      const optionButtons = document.querySelectorAll(".option-button");
+      optionButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const optionSelectedContent = button.textContent;
+          optionSelectedView(optionSelectedContent, optionButtons);
+          optionSelectedSetTimeoutInit(
+            artistName,
+            optionSelectedContent,
+            optionButtons,
+            bottomAndRight,
+            score
+          );
+        });
+      });
+    }
+  } catch (err) {
+    console.log("ERROR");
+  }
 };
 
 const getRandomNumber = (max) => Math.floor(Math.random() * max);
@@ -79,11 +83,11 @@ const generateArtistName2 = (body, artistName) => {
   const secondArtist =
     body.track_list[getRandomNumber(body.track_list.length)].track.artist_name;
   if (secondArtist === artistName) {
-    generateArtistName2(body, artistName);
     console.log("Duplication: Regenerate Artist 2");
+    return generateArtistName2(body, artistName);
   } else if (secondArtist.length === 0) {
-    generateArtistName2(body, artistName);
     console.log("Blank: Regenerate Artist 2");
+    return generateArtistName2(body, artistName);
   } else {
     return secondArtist;
   }
@@ -93,14 +97,14 @@ const generateArtistName3 = (body, artistName, artistName2) => {
   const thirdArtist =
     body.track_list[getRandomNumber(body.track_list.length)].track.artist_name;
   if (thirdArtist === artistName) {
-    generateArtistName3(body, artistName, artistName2);
     console.log("Duplication of main artist: Regenerate Artist 3");
+    return generateArtistName3(body, artistName, artistName2);
   } else if (thirdArtist === artistName2) {
-    generateArtistName3(body, artistName, artistName2);
     console.log("Duplication of second artist: Regenerate Artist 3");
+    return generateArtistName3(body, artistName, artistName2);
   } else if (thirdArtist.length === 0) {
-    generateArtistName3(body, artistName, artistName2);
     console.log("Blank: Regenerate Artist 3");
+    return generateArtistName3(body, artistName, artistName2);
   } else {
     return thirdArtist;
   }
@@ -136,7 +140,6 @@ const displayLyrics = (body, requiredLyrics) => {
   showLyrics.classList.add("lyrics-container");
   showLyrics.textContent = lyricsPart1;
   topAndLeft.appendChild(showLyrics);
-  console.log(body);
 };
 
 const shuffle = (array) => {
