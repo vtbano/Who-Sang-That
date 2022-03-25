@@ -18,6 +18,7 @@ const nextRound = async (score) => {
       `https://musixmatch-proxy.herokuapp.com/chart.tracks.get`
     );
     const body = await response.json();
+    console.log(body);
     if (body.track_list.length === 0) {
       console.log("Initial Track List is blank");
       nextRound(score);
@@ -125,7 +126,7 @@ const getTrackLyrics = async (trackId, score) => {
       nextRound(score);
       console.log("Blank Lyrics with Track.Lyrics.get");
     } else {
-      displayLyrics(body, requiredLyrics);
+      displayLyrics(requiredLyrics);
     }
   } catch (err) {
     getTrackLyrics(trackId);
@@ -133,7 +134,7 @@ const getTrackLyrics = async (trackId, score) => {
   }
 };
 
-const displayLyrics = (body, requiredLyrics) => {
+const displayLyrics = (requiredLyrics) => {
   const [lyricsPart1, notCommericalUse] = requiredLyrics.split("*******");
   const topAndLeft = document.querySelector("#top-and-left");
   const showLyrics = document.createElement("pre");

@@ -1,29 +1,29 @@
 const chartBody = {
   track_list: [
     {
-      track: "1234",
-      artist_name: "Abby Test",
+      track: { track_id: 1234, artist_name: "Abby Test" },
     },
+    ,
     {
-      track: "5678'",
-      artist_name: "Bob Test",
+      track: { track_id: 5678, artist_name: "Bob Test" },
     },
+    ,
     {
-      track: "91011",
-      artist_name: "Carol Test",
+      track: { track_id: 91011, artist_name: "Carol Test" },
     },
+    ,
     {
-      track: "121314",
-      artist_name: "Dave Test",
+      track: { track_id: 21314, artist_name: "Dave Test" },
     },
+    ,
     {
-      track: "151617",
-      artist_name: "Eric Test",
+      track: { track_id: 151617, artist_name: "Eric Test" },
     },
+    ,
     {
-      track: "181920",
-      artist_name: "Frank Test",
+      track: { track_id: 181920, artist_name: "Frank Test" },
     },
+    ,
   ],
 };
 
@@ -73,7 +73,11 @@ const lyricsBodyFrank = {
       "FRANK:Now and then I think of when we were together ******* This is not supposed to print",
   },
 };
-console.log("Test for generateArtistName2");
-generateArtistName2(chartBody, "Abby Test");
 
-console.log("Test for generateArtistName3");
+// const artist1 = chartBody.track_list[0].track.artist_name;
+console.log(chartBody);
+
+console.log("Test for generateArtistName2");
+// generateArtistName2(chartBody, artist1);
+
+// console.log("Test for generateArtistName3");
