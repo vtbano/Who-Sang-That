@@ -1,3 +1,9 @@
+const {
+  getRandomNumber,
+  generateArtistName2,
+  generateArtistName3,
+} = require("./app");
+
 const chartBody = {
   track_list: [
     {

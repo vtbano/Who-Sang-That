@@ -397,7 +397,7 @@ const displayNextRoundButton = () => {
     const topAndLeft = document.querySelector("#top-and-left");
     bottomAndRight.textContent = "";
     topAndLeft.textContent = "";
-    nextRound({ correct: 0, completed: 0 });
+    nextRound(initialscore);
   });
 };
 
@@ -405,5 +405,4 @@ module.exports = {
   getRandomNumber,
   generateArtistName2,
   generateArtistName3,
-  displayLyrics,
 };
