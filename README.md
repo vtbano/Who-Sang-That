@@ -11,7 +11,7 @@ Click the link under the **About** section
 3. A confirmation page will appear letting you know if you guessed the correct artists or not.
 4. Click **"Hit me with the next tune ♫"** to move to the next round.
 
-Once you complete your first round the **score tracker** will appear.
+  Once you complete your first round the **score tracker** will appear.
 * If your screen is less than 600px, like on your handheld device, then you you will see the score at the top right corner.
 * Otherwise, if you are on a desktop you will see it on the bottom right corner.
 
@@ -19,5 +19,5 @@ Once you complete your first round the **score tracker** will appear.
 6. Click **"New Round of tunes ♫"** if you want to start a new game.
 
 ## Dependencies
-*Musixmatch Developer API
-*Musixmatch-proxy
+* Musixmatch Developer API
+* Musixmatch-proxy
