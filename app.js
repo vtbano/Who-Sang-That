@@ -71,7 +71,7 @@ const nextRound = async (score) => {
       });
     }
   } catch (err) {
-    console.log("ERROR");
+    console.log("There is an error when running nextRound", err);
   }
 };
 
