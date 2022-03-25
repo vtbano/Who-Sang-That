@@ -77,17 +77,10 @@ footer {
   width: 25px;
 }
 
-.lyrics-container::-webkit-scrollbar-track {
-  box-shadow: #fed79c;
-}
-
 .lyrics-container::-webkit-scrollbar-thumb {
-  background-color: #fed79c;
-  outline: 1px solid white;
-}
-
-.lyrics-container::-webkit-scrollbar-corner {
-  border-radius: 15px;
+  background-color: #feb321;
+  outline: 1px solid black;
+  border-radius: inherit;
 }
 
 @media screen and (max-width: 500px) {

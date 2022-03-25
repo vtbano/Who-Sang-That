@@ -22,7 +22,6 @@ const nextRound = async (score) => {
       console.log("Initial Track List is blank");
       nextRound(score);
     } else {
-      console.log(body);
       const songCount = body.track_list.length;
       const getArtist = getRandomNumber(songCount);
       const commonTrackId = body.track_list[getArtist].track.commontrack_id; //Correct track id to retrieve lyrics
@@ -54,7 +53,7 @@ const nextRound = async (score) => {
       thirdButton.textContent = mixedArtistOrder[2];
       bottomAndRight.appendChild(thirdButton);
 
-      getTrackLyrics(commonTrackId);
+      getTrackLyrics(commonTrackId, score);
 
       const optionButtons = document.querySelectorAll(".option-button");
       optionButtons.forEach((button) => {
@@ -112,7 +111,8 @@ const generateArtistName3 = (body, artistName, artistName2) => {
 const playButton = document.querySelector(".play-button");
 playButton.addEventListener("click", playGame);
 
-const getTrackLyrics = async (trackId) => {
+const getTrackLyrics = async (trackId, score) => {
+  console.log(trackId);
   try {
     const response = await fetch(
       `https://musixmatch-proxy.herokuapp.com/track.lyrics.get?commontrack_id=${trackId}`
@@ -121,14 +121,14 @@ const getTrackLyrics = async (trackId) => {
     const requiredLyrics = body.lyrics.lyrics_body;
     console.log("getTrackLyrics Body:", body);
     if (requiredLyrics === "" || requiredLyrics.length === 0) {
-      getTrackLyrics(trackId);
+      nextRound(score);
       console.log("Blank Lyrics with Track.Lyrics.get");
     } else {
       displayLyrics(body, requiredLyrics);
     }
   } catch (err) {
     getTrackLyrics(trackId);
-    console.log("Error calling Lyrics with Track.Lyrics.get");
+    console.log("Error calling Lyrics with Track.Lyrics.get", err);
   }
 };
 
