@@ -112,7 +112,6 @@ const playButton = document.querySelector(".play-button");
 playButton.addEventListener("click", playGame);
 
 const getTrackLyrics = async (trackId, score) => {
-  console.log(trackId);
   try {
     const response = await fetch(
       `https://musixmatch-proxy.herokuapp.com/track.lyrics.get?commontrack_id=${trackId}`
@@ -121,6 +120,8 @@ const getTrackLyrics = async (trackId, score) => {
     const requiredLyrics = body.lyrics.lyrics_body;
     console.log("getTrackLyrics Body:", body);
     if (requiredLyrics === "" || requiredLyrics.length === 0) {
+      const bottomAndRight = document.querySelector("#bottom-and-right");
+      bottomAndRight.textContent = "";
       nextRound(score);
       console.log("Blank Lyrics with Track.Lyrics.get");
     } else {
