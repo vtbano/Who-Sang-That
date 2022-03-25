@@ -399,3 +399,10 @@ const displayNextRoundButton = () => {
     nextRound({ correct: 0, completed: 0 });
   });
 };
+
+module.exports = {
+  getRandomNumber,
+  generateArtistName2,
+  generateArtistName3,
+  displayLyrics,
+};

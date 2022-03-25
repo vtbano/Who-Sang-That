@@ -3,7 +3,7 @@ This is a game web application created to test your memory of matching lyrics to
 In one game set you get chances to test your music memory.
 
 ## How to access the game
-Click the link under the **About** section
+Click the link under the **About** section :paperclip:
 
 ## Game Flow
 1. When you land on the click **Play**
@@ -21,3 +21,7 @@ Click the link under the **About** section
 ## Dependencies
 * Musixmatch Developer API
 * Musixmatch-proxy
+
+##Sreenshots
+!["Who Sang That Demo"](https://github.com/vtbano/Who-Sang-That/blob/master/images/WhoSangThat.gif)
+
