@@ -134,6 +134,11 @@ footer {
   text-align: center;
 }
 
+.title-in-description,
+.question-in-description {
+  font-weight: bold;
+}
+
 .option-selected-content {
   font-size: 1.5em;
   padding: 1.5em;
