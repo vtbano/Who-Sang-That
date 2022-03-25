@@ -1,11 +1,11 @@
 # Who Sang That?
-This is a game web application created to test your memory of matching lyrics to the correct artist. This is based on the top 50 songs in the USA.
-In one game set you get chances to test your music memory.
+This is a game web application created to test your memory of matching lyrics to the correct artist. This is based on the current top 50 songs in the USA.
+In one game set you get 10 chances to test your music memory.
 
 ## How to access the game
 Click the :paperclip: link under the **About** section 
 
-## Game Flow
+### Game flow
 1. When you land on the click **Play**
 2. Lyrics and a set of 3 artists will appear. Select the Artist you think matches with the song.
 3. A confirmation page will appear letting you know if you guessed the correct artists or not.
@@ -24,7 +24,7 @@ Click the :paperclip: link under the **About** section
 
 ## Sreenshots
 
-**Start Game**
+**Play Game Snippet**
 !["Who Sang That Demo"](https://github.com/vtbano/Who-Sang-That/blob/master/images/WhoSangThat.gif)
 
 **Win Game**
