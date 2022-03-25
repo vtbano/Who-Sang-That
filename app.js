@@ -169,7 +169,7 @@ const optionSelectedView = (optionSelectedContent, optionButtons) => {
     if (button.innerText === optionSelectedContent) {
       button.classList.remove(`${button.className}`);
       button.removeAttribute("id");
-      button.classList.add("optionSelectedContent");
+      button.classList.add("option-selected-content");
       button.setAttribute("id", "bounce");
       const stage = document.createElement("div");
       stage.classList.add("stage");
@@ -217,7 +217,7 @@ const displayNewScore = (score) => {
   if (score.completed <= 9) {
     const largeScreenDisplay = document.querySelector("#bottom-info");
     const showScore = document.createElement("span");
-    showScore.classList.add("showScore");
+    showScore.classList.add("show-score");
     showScore.textContent = `${score.correct}/${score.completed}`;
     largeScreenDisplay.appendChild(showScore);
   }
@@ -226,7 +226,7 @@ const displayNewScore = (score) => {
 const checkWinnerRemoveScore = (score) => {
   if (score.completed >= 2 && score.completed <= 9) {
     console.log("success score removed");
-    const removeScore = document.querySelector(".showScore");
+    const removeScore = document.querySelector(".show-score");
     removeScore.remove();
   } else if (score.completed === 1) {
     console.log("initial play");
@@ -246,7 +246,7 @@ const checkWinnerRemoveScore = (score) => {
 };
 
 removeScoreFinalWinLose = () => {
-  const removeScore = document.querySelector(".showScore");
+  const removeScore = document.querySelector(".show-score");
   const bottomAndRight = document.querySelector("#bottom-and-right");
   const topAndLeft = document.querySelector("#top-and-left");
   removeScore.remove();
@@ -264,12 +264,12 @@ const removeOptionButtons = (optionButtons, score) => {
 const showCorrectDisplay = (optionSelectedContent, bottomAndRight) => {
   bottomAndRight.textContent = "";
   const correctAnswerResponse = document.createElement("div");
-  correctAnswerResponse.classList.add("correctAnswerResponse");
+  correctAnswerResponse.classList.add("correct-answer-response");
   correctAnswerResponse.textContent = `YAY! ${optionSelectedContent} sang that song!`;
   bottomAndRight.appendChild(correctAnswerResponse);
 
   const correctImg = document.createElement("iframe");
-  correctImg.classList.add("correctImg");
+  correctImg.classList.add("correct-img");
   correctImg.src = "https://giphy.com/embed/xuXzcHMkuwvf2";
   bottomAndRight.appendChild(correctImg);
 };
@@ -277,12 +277,12 @@ const showCorrectDisplay = (optionSelectedContent, bottomAndRight) => {
 const showWrongDisplay = (optionSelectedContent, bottomAndRight) => {
   bottomAndRight.textContent = "";
   const wrongAnswerResponse = document.createElement("div");
-  wrongAnswerResponse.classList.add("wrongAnswerResponse");
+  wrongAnswerResponse.classList.add("wrong-answer-response");
   wrongAnswerResponse.textContent = `SIGH! ${optionSelectedContent} did not sing that song!`;
   bottomAndRight.appendChild(wrongAnswerResponse);
 
   const wrongImg = document.createElement("iframe");
-  wrongImg.classList.add("wrongImg");
+  wrongImg.classList.add("wrong-img");
   wrongImg.src = "https://giphy.com/embed/dICjAqixKQFnG";
   bottomAndRight.appendChild(wrongImg);
 };
@@ -310,19 +310,19 @@ const winDisplay = (score) => {
   });
 
   const winFinalScore = document.createElement("div");
-  winFinalScore.classList.add("winFinalScore");
+  winFinalScore.classList.add("win-final-score");
   winFinalScore.textContent = `${score.correct}/${score.completed}`;
   const topAndLeft = document.querySelector("#top-and-left");
   topAndLeft.appendChild(winFinalScore);
 
   const winResponse = document.createElement("div");
-  winResponse.classList.add("winResponse");
+  winResponse.classList.add("win-response");
   winResponse.textContent = `Correct Matches!`;
   topAndLeft.appendChild(winResponse);
 
   const bottomAndRight = document.querySelector("#bottom-and-right");
   const winGif = document.createElement("iframe");
-  winGif.classList.add("winGif");
+  winGif.classList.add("win-gif");
   winGif.src = "https://giphy.com/embed/oHB0VofpRubjW";
   bottomAndRight.appendChild(winGif);
   //Confetti
@@ -370,18 +370,18 @@ const loseDisplay = (score) => {
   topAndLeft.appendChild(only);
 
   const loseFinalScore = document.createElement("div");
-  loseFinalScore.classList.add("loseFinalScore");
+  loseFinalScore.classList.add("lose-final-score");
   loseFinalScore.textContent = `${score.correct}/${score.completed}`;
   topAndLeft.appendChild(loseFinalScore);
 
   const correctCount = document.createElement("div");
-  correctCount.classList.add("numberOfMatchesLose");
+  correctCount.classList.add("number-of-matches-lose");
   correctCount.textContent = `matches`;
   topAndLeft.appendChild(correctCount);
 
   const bottomAndRight = document.querySelector("#bottom-and-right");
   const loseGif = document.createElement("iframe");
-  loseGif.classList.add("loseGif");
+  loseGif.classList.add("lose-gif");
   loseGif.src = "https://giphy.com/embed/hQ0GvkpZwYcgM";
   bottomAndRight.appendChild(loseGif);
 };

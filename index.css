@@ -134,7 +134,7 @@ footer {
   text-align: center;
 }
 
-.optionSelectedContent {
+.option-selected-content {
   font-size: 1.5em;
   padding: 1.5em;
   width: fit-content;
@@ -173,7 +173,7 @@ footer {
   }
 }
 
-.showScore {
+.show-score {
   background-color: #fed79c;
   color: black;
   width: 50px;
@@ -184,15 +184,15 @@ footer {
 }
 
 @media screen and (max-width: 600px) {
-  .showScore {
+  .show-score {
     position: absolute;
     top: 5px;
     left: 90%;
   }
 }
 
-.correctAnswerResponse,
-.wrongAnswerResponse {
+.correct-answer-response,
+.wrong-answer-response {
   padding: 10px;
   display: inherit;
   place-items: inherit;
@@ -219,8 +219,8 @@ footer {
   color: #feb321;
 }
 
-.loseFinalScore,
-.winFinalScore {
+.lose-final-score,
+.win-final-score {
   background-color: #fed79c;
   color: black;
   font-size: 2em;
@@ -229,33 +229,33 @@ footer {
   margin: 30px 0;
 }
 
-.winFinalScore {
+.win-final-score {
   transform: scale(2);
 }
 
-.loseFinalScore {
+.lose-final-score {
   padding: 25px;
 }
 
 .only,
-.winResponse,
-.numberOfMatchesLose {
+.win-response,
+.number-of-matches-lose {
   color: white;
   display: inherit;
   text-align: center;
   padding: 10px;
 }
 
-.winResponse {
+.win-response {
   font-size: 70px;
 }
 .only {
   font-size: 1em;
 }
-.correctImg,
-.wrongImg,
-.winGif,
-.loseGif {
+.correct-img,
+.wrong-img,
+.win-gif,
+.lose-gif {
   width: 480;
   height: 360;
   border: none;
