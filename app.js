@@ -401,8 +401,8 @@ const displayNextRoundButton = () => {
   });
 };
 
-module.exports = {
-  getRandomNumber,
-  generateArtistName2,
-  generateArtistName3,
-};
+// module.exports = {
+//   getRandomNumber,
+//   generateArtistName2,
+//   generateArtistName3,
+// };
