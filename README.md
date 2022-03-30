@@ -15,7 +15,7 @@ Click the :paperclip: link under the **About** section
 * If your screen is less than 600px, like on your handheld device, then you you will see the score at the top right corner.
 * Otherwise, if you are on a desktop you will see it on the bottom right corner.
 
-5. Once you reach the final round you will be declared a winner if you get 6/10 and above. Otherwise, if you get less than 5/10 you lose.
+5. Once you reach the final round you will be declared a winner if you get 6/10 and above. Otherwise, if you get 5/10 or less than you lose.
 6. Click **"New Round of tunes ♫"** if you want to start a new game.
 
 ## Dependencies
