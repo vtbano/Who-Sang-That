@@ -266,12 +266,16 @@ footer {
   border: none;
 }
 
-#githubLink {
+#githubLink,
+#LinkedIn {
   text-decoration: none;
   color: white;
 }
 
-#LinkedIn {
+#MusixMatchLink {
+  text-align: center;
+}
+#Musixmatch {
   text-decoration: none;
   color: white;
 }
