@@ -15,7 +15,7 @@ const playGame = () => {
 const nextRound = async (score) => {
   try {
     const response = await fetch(
-      `https://delicate-shape-9891.fly.dev/chart.tracks.get`
+      `https://weathered-water-7320.fly.dev/chart.tracks.get`
     );
     const body = await response.json();
     console.log(body);
@@ -82,7 +82,7 @@ playButton.addEventListener("click", playGame);
 const getTrackLyrics = async (trackId, score) => {
   try {
     const response = await fetch(
-      `https://delicate-shape-9891.fly.dev/track.lyrics.get?commontrack_id=${trackId}`
+      `https://weathered-water-7320.fly.dev/track.lyrics.get?commontrack_id=${trackId}`
     );
     const body = await response.json();
     const requiredLyrics = body.lyrics.lyrics_body;
