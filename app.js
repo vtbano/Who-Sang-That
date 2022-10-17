@@ -15,7 +15,7 @@ const playGame = () => {
 const nextRound = async (score) => {
   try {
     const response = await fetch(
-      `https://musixmatch-proxy.herokuapp.com/chart.tracks.get`
+      `https://delicate-shape-9891.fly.dev/chart.tracks.get`
     );
     const body = await response.json();
     console.log(body);
@@ -82,7 +82,7 @@ playButton.addEventListener("click", playGame);
 const getTrackLyrics = async (trackId, score) => {
   try {
     const response = await fetch(
-      `https://musixmatch-proxy.herokuapp.com/track.lyrics.get?commontrack_id=${trackId}`
+      `https://delicate-shape-9891.fly.dev/track.lyrics.get?commontrack_id=${trackId}`
     );
     const body = await response.json();
     const requiredLyrics = body.lyrics.lyrics_body;
